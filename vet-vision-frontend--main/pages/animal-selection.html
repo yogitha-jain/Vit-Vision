@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VetVision | Select Animal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/detection.css">
+</head>
+
+<body>
+
+<main class="detection-page page-enter">
+
+    <button
+        type="button"
+        class="back-button"
+        onclick="history.back()"
+    >
+        ← Back
+    </button>
+
+
+    <section class="animal-selection">
+
+        <p class="section-label">
+            Animal Selection
+        </p>
+
+        <h1>
+            What animal are you uploading?
+        </h1>
+
+        <p class="section-description">
+            Select the animal you want to analyze.
+        </p>
+
+
+        <div class="animal-grid">
+
+            <!-- DOG -->
+            <button
+                type="button"
+                class="animal-card"
+                data-animal="dog"
+            >
+
+                <div class="animal-image">
+
+                    <img
+                        src="../assets/dog.png"
+                        alt="Dog"
+                    >
+
+                </div>
+
+                <span>
+                    Dog
+                </span>
+
+            </button>
+
+
+            <!-- CAT -->
+            <button
+                type="button"
+                class="animal-card"
+                data-animal="cat"
+            >
+
+                <div class="animal-image">
+
+                    <img
+                        src="../assets/cat.png"
+                        alt="Cat"
+                    >
+
+                </div>
+
+                <span>
+                    Cat
+                </span>
+
+            </button>
+
+
+            <!-- CATTLE -->
+            <button
+                type="button"
+                class="animal-card"
+                data-animal="cattle"
+            >
+
+                <div class="animal-image">
+
+                    <img
+                        src="../assets/cattle.png"
+                        alt="Cattle"
+                    >
+
+                </div>
+
+                <span>
+                    Cattle
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- SAME PAGE UPLOAD AREA -->
+
+        <section
+            class="animal-upload-section"
+            id="animalUploadSection"
+            style="display: none;"
+        >
+
+            <div class="upload-section">
+
+
+                <div
+                    class="upload-box"
+                    id="uploadBox"
+                >
+
+                    <div class="upload-icon">
+                        ↑
+                    </div>
+
+
+                    <h3 id="uploadTitle">
+                        Upload Image
+                    </h3>
+
+
+                    <p id="uploadDescription">
+                        Select an image to continue.
+                    </p>
+
+
+                    <button
+                        type="button"
+                        class="file-label"
+                        id="chooseImageBtn"
+                    >
+                        Choose Image
+                    </button>
+
+
+                    <!-- FILE INPUT -->
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/*"
+                        style="
+                            position: fixed;
+                            width: 1px;
+                            height: 1px;
+                            opacity: 0;
+                            left: -100px;
+                            top: 0;
+                        "
+                    >
+
+                </div>
+
+
+                <!-- IMAGE PREVIEW -->
+
+                <div
+                    class="image-preview-container"
+                    id="previewContainer"
+                    style="display: none;"
+                >
+
+                    <img
+                        id="imagePreview"
+                        src=""
+                        alt="Selected animal image"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="changeImageBtn"
+                    >
+                        Change Image
+                    </button>
+
+                </div>
+
+
+                <!-- ANALYZE -->
+
+                <button
+                    type="button"
+                    class="analyze-button"
+                    id="analyzeBtn"
+                    disabled
+                >
+                    Analyze Image
+                </button>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="../js/config.js"></script>
+
+<script src="../js/main.js"></script>
+
+<script src="../js/detection.js?v=3"></script>
+
+
+</body>
+</html>

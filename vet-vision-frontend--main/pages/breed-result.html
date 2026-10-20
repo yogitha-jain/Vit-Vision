@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Breed Result - VetVision</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/result.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◷</span>
+                <span>History</span>
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">○</span>
+                <span>Profile</span>
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+
+            <a
+                href="../index.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+        <div class="result-page">
+
+
+            <div class="page-heading">
+
+                <h1>
+                    Breed Detection Result
+                </h1>
+
+                <p>
+                    Result from the uploaded animal image.
+                </p>
+
+            </div>
+
+
+
+            <section class="result-card">
+
+
+                <!-- IMAGE -->
+
+                <div class="result-image-wrapper">
+
+                    <img
+                        id="resultImage"
+                        src=""
+                        alt="Uploaded animal"
+                    >
+
+                </div>
+
+
+
+                <!-- RESULT INFORMATION -->
+
+                <div class="result-information">
+
+
+                    <div class="result-row">
+
+                        <span>
+                            Animal
+                        </span>
+
+                        <strong id="resultAnimal">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-row">
+
+                        <span>
+                            Detected Breed
+                        </span>
+
+                        <strong id="resultBreed">
+                            Breed result pending
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-row">
+
+                        <span>
+                            Confidence
+                        </span>
+
+                        <strong id="resultConfidence">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div
+                    class="result-status"
+                    id="resultStatus"
+                >
+                    Breed detection result is pending.
+                </div>
+
+
+
+                <!-- ACTION -->
+
+                <div class="result-action">
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="continueAgeBtn"
+                    >
+                        Continue to Age →
+                    </button>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeBreedResult
+);
+
+
+function initializeBreedResult() {
+
+    const resultImage =
+        document.getElementById(
+            "resultImage"
+        );
+
+    const resultAnimal =
+        document.getElementById(
+            "resultAnimal"
+        );
+
+    const resultBreed =
+        document.getElementById(
+            "resultBreed"
+        );
+
+    const resultConfidence =
+        document.getElementById(
+            "resultConfidence"
+        );
+
+    const resultStatus =
+        document.getElementById(
+            "resultStatus"
+        );
+
+    const continueAgeBtn =
+        document.getElementById(
+            "continueAgeBtn"
+        );
+
+
+    /*
+        Read stored detection result.
+    */
+
+    const stored =
+        sessionStorage.getItem(
+            "vetvisionBreedResult"
+        )
+        ||
+        sessionStorage.getItem(
+            "vetvisionDetectionResult"
+        );
+
+
+    let data = null;
+
+
+    if (stored) {
+
+        try {
+
+            data =
+                JSON.parse(stored);
+
+        }
+
+        catch {
+
+            data = null;
+
+        }
+
+    }
+
+
+    /*
+        IMAGE
+    */
+
+    if (
+        data &&
+        data.imageUrl
+    ) {
+
+        resultImage.src =
+            data.imageUrl;
+
+    }
+
+    else {
+
+        resultImage.style.display =
+            "none";
+
+    }
+
+
+    /*
+        ANIMAL
+    */
+
+    if (
+        data &&
+        data.animalType
+    ) {
+
+        resultAnimal.textContent =
+            data.animalType;
+
+    }
+
+
+    /*
+        BREED
+    */
+
+    if (
+        data &&
+        data.breed
+    ) {
+
+        resultBreed.textContent =
+            data.breed;
+
+        let message = "Breed detection completed.";
+
+        if (data.animalMismatch && data.modelThinksAnimal) {
+
+            message =
+                "Warning: the model thinks this photo shows a " +
+                data.modelThinksAnimal + ", not a " + data.animalType +
+                ". Check that you selected the right animal.";
+
+        }
+
+        else if (data.lowConfidence) {
+
+            message =
+                "The model is not very sure about this breed. " +
+                "Try a clearer photo showing the whole animal.";
+
+        }
+
+        resultStatus.textContent = message;
+
+    }
+
+    else {
+
+        resultBreed.textContent =
+            "Breed result pending";
+
+        resultStatus.textContent =
+            "No result yet. Go to Animal Selection and analyze an image.";
+
+    }
+
+
+    /*
+        CONFIDENCE
+    */
+
+    if (
+        data &&
+        data.confidence !== undefined &&
+        data.confidence !== null
+    ) {
+
+        resultConfidence.textContent =
+            data.confidence;
+
+    }
+
+
+    /*
+        CONTINUE
+
+        IMPORTANT:
+        Do not block navigation just because
+        backend breed data is unavailable.
+    */
+
+    continueAgeBtn.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "age.html";
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

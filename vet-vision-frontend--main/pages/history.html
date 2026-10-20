@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>History - VetVision</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/history.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+
+            <a
+                href="history.html"
+                class="active"
+            >
+                History
+            </a>
+
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+
+            <a href="../index.html">
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- BACK -->
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+
+        <div class="history-page">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="history-page-header">
+
+                <h1>
+                    History
+                </h1>
+
+                <p>
+                    Your previous VetVision analyses.
+                </p>
+
+            </div>
+
+
+
+            <!-- FILTER + SEARCH -->
+
+            <div class="history-toolbar">
+
+
+                <!-- FILTERS -->
+
+                <div class="history-filters">
+
+
+                    <button
+                        type="button"
+                        class="history-filter active"
+                        data-filter="all"
+                    >
+                        All
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="history-filter"
+                        data-filter="breed"
+                    >
+                        Breed Detection
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="history-filter"
+                        data-filter="disease"
+                    >
+                        Disease Detection
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- SEARCH -->
+
+                <input
+                    type="search"
+                    id="historySearch"
+                    class="history-search"
+                    placeholder="Search history..."
+                    autocomplete="off"
+                >
+
+
+            </div>
+
+
+
+            <!-- HISTORY LIST -->
+
+            <div
+                class="history-list"
+                id="historyList"
+            >
+
+                <div class="history-loading">
+                    Loading history...
+                </div>
+
+            </div>
+
+
+
+            <!-- EMPTY STATE -->
+
+            <div
+                class="history-empty"
+                id="historyEmpty"
+                style="display:none;"
+            >
+
+                <h3>
+                    No history available
+                </h3>
+
+                <p>
+                    Your completed analyses will appear here.
+                </p>
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                class="history-error"
+                id="historyError"
+                style="display:none;"
+            ></div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script src="../js/config.js"></script>
+
+<script src="../js/main.js"></script>
+
+<script src="../js/history.js"></script>
+
+
+<script>
+
+/*
+    Search support for the existing history.js.
+    This does not create fake records.
+*/
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const search =
+            document.getElementById(
+                "historySearch"
+            );
+
+
+        if (!search) {
+            return;
+        }
+
+
+        search.addEventListener(
+            "input",
+            function () {
+
+                const value =
+                    search.value
+                        .trim()
+                        .toLowerCase();
+
+
+                const items =
+                    document.querySelectorAll(
+                        ".history-item"
+                    );
+
+
+                items.forEach(
+                    function (item) {
+
+                        if (!value) {
+
+                            item.style.display =
+                                "flex";
+
+                            return;
+
+                        }
+
+
+                        const text =
+                            item.textContent
+                                .toLowerCase();
+
+
+                        item.style.display =
+                            text.includes(value)
+                                ? "flex"
+                                : "none";
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

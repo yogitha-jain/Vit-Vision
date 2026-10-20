@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Profile - VetVision</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/profile.css">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">▣</span>
+                History
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link active"
+            >
+                <span class="sidebar-icon">◯</span>
+                Profile
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../index.html"
+                class="sidebar-link logout-link"
+            >
+                <span class="sidebar-icon">↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content page-enter">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+
+        <div class="profile-container">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="page-heading">
+
+                <h1>
+                    Profile
+                </h1>
+
+                <p>
+                    Your account information
+                </p>
+
+            </div>
+
+
+
+            <!-- PROFILE -->
+
+            <section
+                class="profile-card"
+                id="profileCard"
+            >
+
+                <div class="profile-loading">
+                    Loading profile...
+                </div>
+
+            </section>
+
+
+
+            <!-- ERROR -->
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================
+     SCRIPTS
+========================== -->
+
+<script src="../js/config.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/profile.js"></script>
+
+
+</body>
+
+</html>

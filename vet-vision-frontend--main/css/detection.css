@@ -1,0 +1,1029 @@
+/* =========================================
+   ANIMAL SELECTION
+   ========================================= */
+
+.section-label {
+    color: #679274;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.animal-selection {
+    max-width: 1050px;
+    margin: 25px auto;
+    text-align: center;
+}
+
+.animal-selection h1 {
+    color: #294333;
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.section-description {
+    color: #819087;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ANIMAL CARDS
+   ========================================= */
+
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+
+    margin: 42px 0 30px;
+}
+
+.animal-card {
+    position: relative;
+
+    border: 1px solid #e0e9e1;
+    border-radius: 22px;
+
+    background: #ffffff;
+
+    padding: 13px;
+
+    overflow: hidden;
+
+    color: #304b38;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.animal-card:hover {
+    transform: translateY(-9px);
+
+    box-shadow:
+        0 18px 35px rgba(58, 87, 64, 0.14);
+
+    border-color: #b8d3bd;
+}
+
+.animal-card.selected {
+    border: 2px solid #5e8f6d;
+
+    box-shadow:
+        0 12px 30px rgba(94, 143, 109, 0.18);
+
+    transform: translateY(-6px);
+}
+
+.animal-image {
+    height: 235px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    margin-bottom: 15px;
+}
+
+.animal-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.45s ease;
+}
+
+.animal-card:hover img {
+    transform: scale(1.06);
+}
+
+.animal-card span {
+    display: block;
+
+    padding-bottom: 12px;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CONTINUE BUTTON
+   ========================================= */
+
+.continue-button {
+    min-width: 155px;
+}
+
+.continue-button:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   DETECTION / UPLOAD PAGE
+   ========================================= */
+
+.detection-wrapper {
+    max-width: 950px;
+    margin: 15px auto;
+}
+
+.detection-heading {
+    margin-bottom: 28px;
+}
+
+.detection-heading h1 {
+    color: #294333;
+
+    font-size: 34px;
+
+    font-weight: 600;
+}
+
+.detection-heading p {
+    color: #819087;
+
+    font-size: 13px;
+
+    margin-top: 7px;
+}
+
+
+/* =========================================
+   UPLOAD SECTION
+   ========================================= */
+
+.upload-section {
+    background: #ffffff;
+
+    border: 1px solid #e1e9e2;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 8px 25px rgba(50, 77, 56, 0.05);
+}
+
+.upload-box {
+    min-height: 280px;
+
+    border: 2px dashed #c4d8c8;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background: #fafcf9;
+
+    transition: 0.3s ease;
+}
+
+.upload-box:hover {
+    border-color: #79a486;
+
+    background: #f5faf5;
+}
+
+.upload-icon {
+    font-size: 42px;
+
+    margin-bottom: 12px;
+}
+
+.upload-box h3 {
+    color: #415b48;
+
+    font-size: 17px;
+
+    margin-bottom: 7px;
+}
+
+.upload-box p {
+    color: #8a978f;
+
+    font-size: 12px;
+
+    margin-bottom: 18px;
+}
+
+.file-label {
+    display: inline-flex;
+
+    padding: 10px 18px;
+
+    border-radius: 9px;
+
+    background: #e6f1e8;
+
+    color: #477454;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+#imageInput {
+    display: none;
+}
+
+
+/* =========================================
+   IMAGE PREVIEW
+   ========================================= */
+
+.preview-container {
+    display: none;
+
+    margin-top: 25px;
+}
+
+.preview-container.show {
+    display: block;
+
+    animation:
+        scaleIn 0.4s ease both;
+}
+
+.preview-image {
+    width: 100%;
+
+    max-height: 350px;
+
+    object-fit: contain;
+
+    border-radius: 15px;
+
+    background: #f4f7f3;
+}
+
+
+/* Detection JS uses this container */
+
+.image-preview-container {
+    width: 100%;
+
+    max-width: 520px;
+
+    margin: 20px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.image-preview-container img {
+    display: block;
+
+    width: 100%;
+
+    max-width: 420px;
+
+    height: 280px;
+
+    object-fit: contain;
+
+    border-radius: 16px;
+
+    border: 1px solid #dce5df;
+
+    background: #f5f8f5;
+}
+
+.image-preview-container .secondary-button {
+    width: auto;
+
+    min-width: 130px;
+}
+
+
+/* =========================================
+   ANALYZE BUTTON
+   ========================================= */
+
+.analyze-row {
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+.analyze-button {
+    display: block;
+
+    margin: 20px auto 0;
+}
+
+
+/* =========================================
+   RESULT SECTION
+   ========================================= */
+
+.result-section {
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 30px auto 0;
+}
+
+.result-card {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe9e0;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(52, 81, 59, 0.07);
+
+    animation:
+        pageFade 0.5s ease both;
+}
+
+
+/* =========================================
+   ACTUAL RESULT
+   ========================================= */
+
+.actual-result {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 24px;
+}
+
+.result-image {
+    width: 100%;
+
+    max-width: 420px;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+.result-image img {
+    width: 100%;
+
+    max-width: 420px;
+
+    height: 260px;
+
+    object-fit: contain;
+
+    border-radius: 16px;
+
+    background: #f5f8f5;
+
+    border: 1px solid #dce5df;
+}
+
+.result-details {
+    width: 100%;
+
+    max-width: 600px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.result-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 14px 18px;
+
+    border-radius: 12px;
+
+    background: #f7faf7;
+
+    border: 1px solid #e3ebe5;
+}
+
+.result-row span {
+    color: #68756d;
+
+    font-size: 14px;
+}
+
+.result-row strong {
+    color: #24382d;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   RESULT STATES
+   ========================================= */
+
+.result-loading {
+    text-align: center;
+
+    padding: 30px;
+
+    color: #68756d;
+}
+
+.result-error {
+    text-align: center;
+
+    padding: 25px;
+
+    color: #68756d;
+}
+
+.result-error h3 {
+    margin-bottom: 8px;
+
+    color: #294333;
+}
+
+
+/* =========================================
+   OLD RESULT LAYOUT SUPPORT
+   ========================================= */
+
+.result-layout {
+    display: grid;
+
+    grid-template-columns: 280px 1fr;
+
+    gap: 35px;
+
+    align-items: center;
+}
+
+.result-photo {
+    width: 100%;
+
+    height: 250px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+}
+
+.result-label {
+    color: #779080;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+.result-title {
+    color: #294333;
+
+    font-size: 27px;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+}
+
+.confidence-text {
+    color: #67796d;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+.confidence-bar {
+    height: 8px;
+
+    width: 100%;
+
+    background: #e9efe9;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+
+    width: 92%;
+
+    background: #70a481;
+
+    border-radius: inherit;
+}
+
+.result-action {
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+#resultAction {
+    margin-top: 25px;
+
+    justify-content: center;
+}
+
+
+/* =========================================
+   AGE PAGE
+   ========================================= */
+
+.age-page {
+    max-width: 700px;
+
+    margin: 30px auto;
+}
+
+.age-page h1 {
+    color: #294333;
+
+    font-size: 34px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.age-card {
+    margin-top: 35px;
+
+    background: #ffffff;
+
+    border: 1px solid #e0e9e1;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 10px 30px rgba(50, 77, 56, 0.06);
+}
+
+.detected-breed-box {
+    padding: 18px;
+
+    background: #f1f7f1;
+
+    border-radius: 12px;
+
+    margin-bottom: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.detected-breed-box span {
+    color: #809087;
+
+    font-size: 11px;
+}
+
+.detected-breed-box strong {
+    color: #34523c;
+
+    font-size: 19px;
+}
+
+.age-card > label {
+    display: block;
+
+    color: #43574a;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    margin-bottom: 9px;
+}
+
+.age-input-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 28px;
+}
+
+.age-input-row input {
+    width: 100%;
+
+    height: 52px;
+
+    border: 1px solid #dce6df;
+
+    border-radius: 11px;
+
+    padding: 0 15px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.age-input-row input:focus {
+    border-color: #70a481;
+
+    box-shadow:
+        0 0 0 4px rgba(112, 164, 129, 0.11);
+}
+
+.age-input-row span {
+    color: #748279;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 850px) {
+
+    .animal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .animal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .result-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .upload-section {
+        padding: 25px;
+    }
+}
+/* =========================================================
+   AGE PAGE - FIXED IMAGE SIZE
+   ========================================================= */
+
+.age-animal-image-container {
+    width: 100%;
+    max-width: 420px;
+    height: 240px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f7f4;
+    border: 1px solid #dfe8e1;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.age-animal-image-container img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* Breed information */
+
+.selected-breed-info {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.selected-info {
+    background: #f5f8f5;
+    border: 1px solid #e0e8e1;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.selected-info span {
+    color: #7b897f;
+    font-size: 13px;
+}
+
+.selected-info strong {
+    color: #30483b;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* Age input */
+
+.age-form {
+    width: 100%;
+}
+
+.age-input-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.age-input-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.age-input-row select {
+    width: 130px;
+    flex-shrink: 0;
+}
+
+
+/* Keep button normal size */
+
+.age-form .primary-button {
+    width: auto;
+    min-width: 170px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .age-animal-image-container {
+        max-width: 100%;
+        height: 210px;
+    }
+
+    .selected-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .age-input-row {
+        flex-direction: column;
+    }
+
+    .age-input-row select {
+        width: 100%;
+    }
+
+}
+/* =====================================================
+   AGE PAGE IMAGE
+===================================================== */
+
+.age-animal-image-container {
+    width: 100%;
+    max-width: 420px;
+    height: 240px;
+
+    margin: 0 auto 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3f7f4;
+
+    border: 1px solid #dfe8e1;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+}
+
+
+.age-animal-image-container img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* Breed information */
+
+.selected-breed-info {
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+
+.selected-info {
+    width: 100%;
+
+    background: #f5f8f5;
+
+    border: 1px solid #e0e8e1;
+
+    border-radius: 12px;
+
+    padding: 16px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.selected-info span {
+    color: #7b897f;
+    font-size: 13px;
+}
+
+
+.selected-info strong {
+    color: #30483b;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* Age input */
+
+.age-form {
+    width: 100%;
+}
+
+
+.age-input-row {
+    display: flex;
+
+    width: 100%;
+
+    gap: 12px;
+
+    margin-bottom: 24px;
+}
+
+
+.age-input-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.age-input-row select {
+    width: 130px;
+    flex-shrink: 0;
+}
+
+
+/* Button */
+
+.age-form .primary-button {
+    width: auto;
+    min-width: 170px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .age-animal-image-container {
+        max-width: 100%;
+        height: 210px;
+    }
+
+
+    .selected-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+
+    .age-input-row {
+        flex-direction: column;
+    }
+
+
+    .age-input-row select {
+        width: 100%;
+    }
+
+}
+.secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: 1px solid #b8d3bd;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #4f765a;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+    background: #edf5ef;
+    transform: translateY(-2px);
+}
+
+.analyze-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 30px;
+    margin-top: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #5e8f6d;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.analyze-button:hover:not(:disabled) {
+    background: #4f7e5d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(94, 143, 109, 0.22);
+}
+
+.analyze-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

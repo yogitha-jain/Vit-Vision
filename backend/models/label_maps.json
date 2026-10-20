@@ -1,0 +1,77 @@
+{
+  "animal_names": [
+    "cat",
+    "cattle",
+    "dog"
+  ],
+  "global_breed_names": [
+    "cat/Bengal",
+    "cat/British_Shorthair",
+    "cat/Domestic_Short_Hair",
+    "cat/Himalayan",
+    "cat/Maine_Coon",
+    "cat/Persian",
+    "cat/Ragdoll",
+    "cat/Scottish_Fold",
+    "cat/Siamese",
+    "cat/Sphynx",
+    "cattle/Amritmahal",
+    "cattle/Gir",
+    "cattle/Hallikar",
+    "cattle/Holstein_Friesian",
+    "cattle/Jersey",
+    "cattle/Kasargod",
+    "cattle/Malnad_gidda",
+    "cattle/Murrah",
+    "cattle/Red_Sindhi",
+    "cattle/Sahiwal",
+    "dog/German_shepherd",
+    "dog/Labrador_retriever",
+    "dog/Pomeranian",
+    "dog/Rottweiler",
+    "dog/Shih-Tzu",
+    "dog/Siberian_husky",
+    "dog/beagle",
+    "dog/boxer",
+    "dog/golden_retriever",
+    "dog/pug"
+  ],
+  "animal_to_breed_range": {
+    "0": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "1": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "2": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+.dashboard-heading {
+    max-width: 700px;
+    margin: 25px auto 50px;
+    text-align: center;
+}
+
+.small-heading {
+    color: #75907d;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.dashboard-heading h1 {
+    color: #294333;
+    font-size: 38px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.dashboard-heading > p:last-child {
+    color: #829087;
+    font-size: 14px;
+}
+
+.dashboard-cards {
+    max-width: 930px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 27px;
+}
+
+.dashboard-card {
+    position: relative;
+
+    min-height: 330px;
+
+    padding: 42px;
+
+    border-radius: 22px;
+
+    border: 1px solid #e0e9e1;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    box-shadow:
+        0 8px 28px rgba(57, 83, 63, 0.06);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 42px rgba(57, 83, 63, 0.12);
+
+    border-color: #bfd7c5;
+}
+
+.dashboard-card-icon {
+    width: 67px;
+    height: 67px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #edf5ed;
+
+    font-size: 29px;
+
+    margin-bottom: 30px;
+
+    transition: transform 0.35s ease;
+}
+
+.dashboard-card:hover .dashboard-card-icon {
+    transform: scale(1.1) rotate(-3deg);
+}
+
+.dashboard-card h2 {
+    color: #304b38;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.dashboard-card p {
+    color: #7b8c81;
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 330px;
+}
+
+.card-arrow {
+    position: absolute;
+
+    right: 35px;
+    bottom: 32px;
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e8f2e9;
+
+    color: #4c7e59;
+
+    transition: 0.3s ease;
+}
+
+.dashboard-card:hover .card-arrow {
+    transform: translateX(6px);
+    background: #5e8f6d;
+    color: white;
+}
+
+@media (max-width: 850px) {
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+}

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VetVision | Disease Result</title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/result.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">▣</span>
+                History
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◯</span>
+                Profile
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../index.html"
+                class="sidebar-link logout-link"
+            >
+                <span class="sidebar-icon">↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content page-enter">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+        <div class="result-page">
+
+
+            <div class="page-heading">
+
+                <p class="section-label">
+                    Disease Detection
+                </p>
+
+                <h1>
+                    Detection Result
+                </h1>
+
+                <p>
+                    The detected disease result will appear here.
+                </p>
+
+            </div>
+
+
+            <section class="result-card">
+
+
+                <div class="result-image-wrapper">
+
+                    <img
+                        id="resultImage"
+                        src=""
+                        alt="Uploaded animal"
+                    >
+
+                </div>
+
+
+                <div class="result-information">
+
+
+                    <div class="result-row">
+
+                        <span>
+                            Animal
+                        </span>
+
+                        <strong id="resultAnimal">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-row">
+
+                        <span>
+                            Detection Result
+                        </span>
+
+                        <strong id="resultDisease">
+                            Result pending
+                        </strong>
+
+                    </div>
+
+
+                    <div class="result-row">
+
+                        <span>
+                            Confidence
+                        </span>
+
+                        <strong id="resultConfidence">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <p
+                    id="resultStatus"
+                    class="result-status"
+                >
+                    No result yet. Go to Animal Selection and analyze an image.
+                </p>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="../js/main.js"></script>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const stored =
+            sessionStorage.getItem(
+                "vetvisionDetectionResult"
+            );
+
+
+        if (!stored) {
+            return;
+        }
+
+
+        let data;
+
+
+        try {
+
+            data =
+                JSON.parse(stored);
+
+        } catch {
+
+            return;
+
+        }
+
+
+        const image =
+            document.getElementById(
+                "resultImage"
+            );
+
+
+        const animal =
+            document.getElementById(
+                "resultAnimal"
+            );
+
+
+        const disease =
+            document.getElementById(
+                "resultDisease"
+            );
+
+
+        const confidence =
+            document.getElementById(
+                "resultConfidence"
+            );
+
+
+        const status =
+            document.getElementById(
+                "resultStatus"
+            );
+
+
+        if (data.imageUrl) {
+
+            image.src =
+                data.imageUrl;
+
+        }
+
+
+        if (data.animalType) {
+
+            animal.textContent =
+                data.animalType;
+
+        }
+
+
+        if (data.disease) {
+
+            disease.textContent =
+                data.diseaseDisplay || data.disease;
+
+        }
+
+
+        if (
+            data.confidence !== undefined &&
+            data.confidence !== null
+        ) {
+
+            confidence.textContent =
+                data.confidence;
+
+        }
+
+
+        if (
+            data.status === "success"
+        ) {
+
+            let message =
+                "Disease detection completed. " +
+                "This is an AI prediction, not a veterinary diagnosis.";
+
+            if (data.lowConfidence) {
+
+                message =
+                    "The model is not very sure about this result. " +
+                    "Try a clearer, closer photo. " +
+                    "This is an AI prediction, not a veterinary diagnosis.";
+
+            }
+
+            status.textContent = message;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

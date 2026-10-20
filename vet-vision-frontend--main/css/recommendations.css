@@ -1,0 +1,564 @@
+/* =========================================================
+   VETVISION - RECOMMENDATIONS
+   ========================================================= */
+
+.recommendations-page {
+    background: #f5f8f3;
+}
+
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+
+.recommendations-layout {
+    min-height: 100vh;
+    background: #f5f8f3;
+}
+
+
+.recommendations-layout .main-content {
+    background: #f5f8f3;
+}
+
+
+.recommendations-page-content {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.recommendations-page-content .page-heading {
+    margin-bottom: 28px;
+}
+
+
+.recommendations-page-content .page-heading h1 {
+    margin: 0;
+
+    color: #30483b;
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.8px;
+}
+
+
+.recommendations-page-content .page-heading p {
+    margin: 8px 0 0;
+
+    color: #78877e;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SUMMARY CARD
+   ========================================================= */
+
+.recommendation-summary {
+    width: 100%;
+
+    min-height: 112px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    padding: 22px 30px;
+
+    margin-bottom: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe8e1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 28px rgba(
+            57,
+            88,
+            66,
+            0.06
+        );
+}
+
+
+/* Uploaded image */
+
+.recommendation-animal-image {
+    width: 88px;
+
+    height: 68px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f2f6f3;
+
+    border-radius: 12px;
+
+    border: 1px solid #e1e8e2;
+}
+
+
+.recommendation-animal-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* Summary information */
+
+.recommendation-summary-details {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 0;
+}
+
+
+.summary-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 0 24px;
+
+    border-right: 1px solid #e4ebe5;
+}
+
+
+.summary-item:first-child {
+    padding-left: 0;
+}
+
+
+.summary-item:last-child {
+    border-right: none;
+
+    padding-right: 0;
+}
+
+
+.summary-item span {
+    color: #8a978f;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+.summary-item strong {
+    color: #30483b;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   CATEGORY TAB BAR
+   ========================================================= */
+
+.recommendation-tabs-wrapper {
+    width: 100%;
+
+    margin-bottom: 26px;
+}
+
+
+.recommendation-tabs {
+    position: relative;
+
+    width: fit-content;
+
+    min-width: 520px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0;
+
+    padding: 5px;
+
+    background: #e8f1ea;
+
+    border-radius: 14px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TAB BUTTON
+   ========================================================= */
+
+.recommendation-tab {
+    position: relative;
+
+    z-index: 2;
+
+    flex: 1;
+
+    min-width: 125px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #698076;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    transition:
+        color 0.25s ease,
+        transform 0.2s ease;
+}
+
+
+.recommendation-tab:hover {
+    color: #3f7050;
+
+    transform: translateY(-1px);
+}
+
+
+.recommendation-tab.active {
+    background: #ffffff;
+
+    color: #3f7050;
+
+    box-shadow:
+        0 4px 12px rgba(
+            57,
+            88,
+            66,
+            0.10
+        );
+}
+
+
+.tab-icon {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RECOMMENDATION CONTENT
+   ========================================================= */
+
+.recommendation-content-area {
+    width: 100%;
+
+    position: relative;
+}
+
+
+/*
+    THIS IS THE IMPORTANT PART.
+
+    Only the active section is displayed.
+*/
+
+.recommendation-section {
+    display: none;
+
+    width: 100%;
+}
+
+
+.recommendation-section.active {
+    display: block;
+
+    animation:
+        recommendationSlide
+        0.35s ease both;
+}
+
+
+@keyframes recommendationSlide {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(18px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   RECOMMENDATION CARD
+   ========================================================= */
+
+.recommendation-card {
+    width: 100%;
+
+    min-height: 300px;
+
+    box-sizing: border-box;
+
+    padding: 30px 36px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe8e1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(
+            57,
+            88,
+            66,
+            0.06
+        );
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.recommendation-card-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #edf1ee;
+}
+
+
+.recommendation-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #8a978f;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+.recommendation-card h2 {
+    margin: 0;
+
+    color: #30483b;
+
+    font-size: 25px;
+
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.recommendation-body {
+    padding-top: 22px;
+
+    color: #697870;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+
+.recommendation-body p {
+    margin: 0;
+}
+
+
+.unavailable-text {
+    color: #87938c;
+}
+
+
+/* Backend array */
+
+.recommendation-body ul {
+    margin: 0;
+
+    padding-left: 22px;
+}
+
+
+.recommendation-body li {
+    margin-bottom: 9px;
+}
+
+
+/* Backend object */
+
+.recommendation-item {
+    padding: 14px 0;
+
+    border-bottom: 1px solid #edf1ee;
+}
+
+
+.recommendation-item:last-child {
+    border-bottom: none;
+}
+
+
+.recommendation-item strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #40564a;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .recommendation-summary-details {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+
+    .summary-item {
+        padding: 0;
+
+        border-right: none;
+
+        border-bottom: 1px solid #e4ebe5;
+
+        padding-bottom: 12px;
+    }
+
+
+    .summary-item:last-child {
+        border-bottom: none;
+
+        padding-bottom: 0;
+    }
+
+
+    .recommendation-tabs {
+        width: 100%;
+
+        min-width: 0;
+
+        overflow-x: auto;
+    }
+
+
+    .recommendation-tab {
+        min-width: 120px;
+
+        flex-shrink: 0;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .recommendation-summary {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 20px;
+    }
+
+
+    .recommendation-animal-image {
+        width: 100%;
+
+        height: 150px;
+    }
+
+
+    .recommendation-card {
+        padding: 24px 20px;
+    }
+
+
+    .recommendation-card h2 {
+        font-size: 22px;
+    }
+
+}

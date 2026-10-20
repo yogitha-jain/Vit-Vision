@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Animal Age - VetVision</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/detection.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◷</span>
+                <span>History</span>
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">○</span>
+                <span>Profile</span>
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+
+            <a
+                href="../index.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+        <div class="detection-container">
+
+
+            <div class="page-heading">
+
+                <h1>
+                    Animal Age
+                </h1>
+
+                <p>
+                    Enter the age of the detected animal.
+                </p>
+
+            </div>
+
+
+
+            <section class="detection-card">
+
+
+                <!-- UPLOADED IMAGE -->
+
+                <div
+                    class="age-animal-image-container"
+                    id="ageImageContainer"
+                    style="display:none;"
+                >
+
+                    <img
+                        id="ageAnimalImage"
+                        src=""
+                        alt="Uploaded animal"
+                    >
+
+                </div>
+
+
+
+                <!-- BREED -->
+
+                <div
+                    class="selected-breed-info"
+                    id="selectedBreedInfo"
+                >
+
+                    <div class="selected-info">
+
+                        <span>
+                            Detected Breed
+                        </span>
+
+                        <strong id="breedName">
+                            Breed result pending
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- AGE -->
+
+                <div class="age-form">
+
+                    <label for="animalAge">
+                        Animal Age
+                    </label>
+
+
+                    <div class="age-input-row">
+
+                        <input
+                            type="number"
+                            id="animalAge"
+                            min="0"
+                            step="0.1"
+                            placeholder="Enter age"
+                        >
+
+
+                        <select id="ageUnit">
+
+                            <option value="years">
+                                Years
+                            </option>
+
+                            <option value="months">
+                                Months
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- REAL LINK, NOT A BUTTON DEPENDENT ON JS -->
+
+                    <a
+                        href="recommendations.html"
+                        class="primary-button age-continue-link"
+                        id="recommendationBtn"
+                    >
+                        Continue →
+                    </a>
+
+
+                    <p
+                        class="error-message"
+                        id="ageError"
+                    ></p>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const breedName =
+            document.getElementById(
+                "breedName"
+            );
+
+
+        const ageImageContainer =
+            document.getElementById(
+                "ageImageContainer"
+            );
+
+
+        const ageAnimalImage =
+            document.getElementById(
+                "ageAnimalImage"
+            );
+
+
+        const ageInput =
+            document.getElementById(
+                "animalAge"
+            );
+
+
+        const ageUnit =
+            document.getElementById(
+                "ageUnit"
+            );
+
+
+        const recommendationBtn =
+            document.getElementById(
+                "recommendationBtn"
+            );
+
+
+        const ageError =
+            document.getElementById(
+                "ageError"
+            );
+
+
+
+        /* ----------------------------------
+           GET BREED RESULT
+        ---------------------------------- */
+
+        const storedBreed =
+            sessionStorage.getItem(
+                "vetvisionBreedResult"
+            );
+
+
+        const storedDetection =
+            sessionStorage.getItem(
+                "vetvisionDetectionResult"
+            );
+
+
+        let breedData = null;
+
+
+        if (storedBreed) {
+
+            try {
+
+                breedData =
+                    JSON.parse(
+                        storedBreed
+                    );
+
+            }
+
+            catch {
+
+                breedData = null;
+
+            }
+
+        }
+
+
+        if (
+            !breedData &&
+            storedDetection
+        ) {
+
+            try {
+
+                breedData =
+                    JSON.parse(
+                        storedDetection
+                    );
+
+            }
+
+            catch {
+
+                breedData = null;
+
+            }
+
+        }
+
+
+
+        /* ----------------------------------
+           SHOW IMAGE
+        ---------------------------------- */
+
+        if (
+            breedData &&
+            breedData.imageUrl
+        ) {
+
+            ageAnimalImage.src =
+                breedData.imageUrl;
+
+            ageImageContainer.style.display =
+                "flex";
+
+        }
+
+
+
+        /* ----------------------------------
+           SHOW BREED
+        ---------------------------------- */
+
+        if (
+            breedData &&
+            breedData.breed
+        ) {
+
+            breedName.textContent =
+                breedData.breed;
+
+        }
+
+        else {
+
+            breedName.textContent =
+                "Breed result pending";
+
+        }
+
+
+
+        /* ----------------------------------
+           SAVE DATA BEFORE NAVIGATION
+        ---------------------------------- */
+
+        recommendationBtn.addEventListener(
+            "click",
+            function (event) {
+
+                ageError.textContent = "";
+
+
+                const age =
+                    ageInput.value.trim();
+
+
+                /*
+                    If no age is entered,
+                    stop navigation.
+                */
+
+                if (!age) {
+
+                    event.preventDefault();
+
+                    ageError.textContent =
+                        "Please enter the animal's age.";
+
+                    return;
+
+                }
+
+
+                const numericAge =
+                    Number(age);
+
+
+                if (
+                    Number.isNaN(
+                        numericAge
+                    ) ||
+                    numericAge < 0
+                ) {
+
+                    event.preventDefault();
+
+                    ageError.textContent =
+                        "Please enter a valid age.";
+
+                    return;
+
+                }
+
+
+                /*
+                    Save everything collected so far.
+                */
+
+                const recommendationData = {
+
+                    animalType:
+                        breedData?.animalType || "",
+
+                    breed:
+                        breedData?.breed || "",
+
+                    age:
+                        numericAge,
+
+                    ageUnit:
+                        ageUnit.value,
+
+                    detectionId:
+                        breedData?.id || "",
+
+                    imageUrl:
+                        breedData?.imageUrl || ""
+
+                };
+
+
+                sessionStorage.setItem(
+                    "vetvisionRecommendationResult",
+                    JSON.stringify(
+                        recommendationData
+                    )
+                );
+
+
+                /*
+                    IMPORTANT:
+                    We DO NOT call an API here.
+
+                    The link continues directly to
+                    recommendations.html.
+                */
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

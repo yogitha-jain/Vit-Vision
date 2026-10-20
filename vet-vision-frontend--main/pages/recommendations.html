@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recommendations - VetVision</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/recommendations.css"
+    >
+
+</head>
+
+
+<body class="recommendations-page">
+
+
+<div class="app-layout recommendations-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◷</span>
+                <span>History</span>
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">○</span>
+                <span>Profile</span>
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+
+            <a
+                href="../index.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+
+        <div class="recommendations-page-content">
+
+
+            <!-- HEADING -->
+
+            <div class="page-heading">
+
+                <h1>
+                    Recommendations
+                </h1>
+
+                <p>
+                    Based on the detected animal, breed and age.
+                </p>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <section class="recommendation-summary">
+
+
+                <div
+                    class="recommendation-animal-image"
+                    id="animalImageContainer"
+                    style="display:none;"
+                >
+
+                    <img
+                        id="animalImage"
+                        src=""
+                        alt="Analyzed animal"
+                    >
+
+                </div>
+
+
+
+                <div class="recommendation-summary-details">
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            Animal
+                        </span>
+
+                        <strong id="animalType">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            Breed
+                        </span>
+
+                        <strong id="animalBreed">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <span>
+                            Age
+                        </span>
+
+                        <strong id="animalAge">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- CATEGORY SLIDER -->
+
+            <div class="recommendation-tabs-wrapper">
+
+                <div class="recommendation-tabs">
+
+
+                    <button
+                        type="button"
+                        class="recommendation-tab active"
+                        data-section="diet"
+                    >
+                        <span class="tab-icon">◉</span>
+                        Diet
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="recommendation-tab"
+                        data-section="grooming"
+                    >
+                        <span class="tab-icon">✦</span>
+                        Grooming
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="recommendation-tab"
+                        data-section="vaccination"
+                    >
+                        <span class="tab-icon">＋</span>
+                        Vaccination
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="recommendation-tab"
+                        data-section="exercise"
+                    >
+                        <span class="tab-icon">↗</span>
+                        Exercise
+                    </button>
+
+                    <button
+                        type="button"
+                        class="recommendation-tab"
+                        data-section="health"
+                    >
+                        <span class="tab-icon">♥</span>
+                        Health
+                    </button>
+
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONTENT AREA -->
+
+            <div class="recommendation-content-area">
+
+
+                <!-- DIET -->
+
+                <section
+                    id="dietSection"
+                    class="recommendation-section active"
+                >
+
+                    <div class="recommendation-card">
+
+
+                        <div class="recommendation-card-header">
+
+                            <div>
+
+                                <span class="recommendation-label">
+                                    CARE CATEGORY
+                                </span>
+
+                                <h2>
+                                    Diet
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="dietContent"
+                            class="recommendation-body"
+                        >
+
+                            <p class="unavailable-text">
+                                Information unavailable.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- GROOMING -->
+
+                <section
+                    id="groomingSection"
+                    class="recommendation-section"
+                >
+
+                    <div class="recommendation-card">
+
+
+                        <div class="recommendation-card-header">
+
+                            <div>
+
+                                <span class="recommendation-label">
+                                    CARE CATEGORY
+                                </span>
+
+                                <h2>
+                                    Grooming
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="groomingContent"
+                            class="recommendation-body"
+                        >
+
+                            <p class="unavailable-text">
+                                Information unavailable.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- VACCINATION -->
+
+                <section
+                    id="vaccinationSection"
+                    class="recommendation-section"
+                >
+
+                    <div class="recommendation-card">
+
+
+                        <div class="recommendation-card-header">
+
+                            <div>
+
+                                <span class="recommendation-label">
+                                    CARE CATEGORY
+                                </span>
+
+                                <h2>
+                                    Vaccination
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="vaccinationContent"
+                            class="recommendation-body"
+                        >
+
+                            <p class="unavailable-text">
+                                Information unavailable.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- EXERCISE -->
+
+                <section
+                    id="exerciseSection"
+                    class="recommendation-section"
+                >
+
+                    <div class="recommendation-card">
+
+
+                        <div class="recommendation-card-header">
+
+                            <div>
+
+                                <span class="recommendation-label">
+                                    CARE CATEGORY
+                                </span>
+
+                                <h2>
+                                    Exercise
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="exerciseContent"
+                            class="recommendation-body"
+                        >
+
+                            <p class="unavailable-text">
+                                Information unavailable.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+                <!-- HEALTH -->
+
+                <section
+                    id="healthSection"
+                    class="recommendation-section"
+                >
+
+                    <div class="recommendation-card">
+
+                        <div class="recommendation-card-header">
+
+                            <div>
+
+                                <span class="recommendation-label">
+                                    CARE CATEGORY
+                                </span>
+
+                                <h2>
+                                    Health
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="healthContent"
+                            class="recommendation-body"
+                        >
+
+                            <p class="unavailable-text">
+                                Information unavailable.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="../js/config.js"></script>
+<script src="../js/recommendations.js"></script>
+
+</body>
+
+</html>

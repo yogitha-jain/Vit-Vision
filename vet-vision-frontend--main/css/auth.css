@@ -1,0 +1,582 @@
+/* =========================================
+   AUTH PAGE
+   ========================================= */
+
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    background: #f7faf7;
+}
+
+
+/* =========================================
+   LEFT VISUAL
+   ========================================= */
+
+.auth-visual {
+    position: relative;
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(218, 239, 224, 0.62),
+            rgba(218, 239, 224, 0.62)
+        ),
+        url("../assets/background.jpeg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+/* Decorative circles */
+
+.auth-visual::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    top: -180px;
+    left: -150px;
+}
+
+
+.auth-visual::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.16);
+
+    bottom: -130px;
+    right: -100px;
+}
+
+
+/* =========================================
+   VISUAL CONTENT
+   ========================================= */
+
+.visual-content {
+    position: relative;
+    z-index: 2;
+
+    width: min(80%, 520px);
+
+    animation: visualEnter 0.9s ease forwards;
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 55px;
+}
+
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border-radius: 14px;
+
+    font-size: 23px;
+
+    box-shadow:
+        0 8px 25px rgba(62, 105, 78, 0.08);
+}
+
+
+.brand span {
+    font-size: 25px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+
+    color: #294c38;
+}
+
+
+.visual-content h1 {
+    font-size: clamp(38px, 4vw, 58px);
+
+    line-height: 1.12;
+
+    font-weight: 600;
+
+    color: #294c38;
+
+    margin-bottom: 20px;
+}
+
+
+.visual-content p {
+    max-width: 420px;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color: #52705e;
+}
+
+
+/* =========================================
+   RIGHT FORM SECTION
+   ========================================= */
+
+.auth-form-section {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px 70px;
+
+    background: #ffffff;
+}
+
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+
+    animation: formEnter 0.8s ease forwards;
+}
+
+
+/* Mobile brand */
+
+.mobile-brand {
+    display: none;
+}
+
+
+/* =========================================
+   FORM HEADING
+   ========================================= */
+
+.form-heading {
+    margin-bottom: 38px;
+}
+
+
+.form-heading h2 {
+    font-size: 34px;
+
+    line-height: 1.2;
+
+    font-weight: 600;
+
+    color: #263f31;
+
+    margin-bottom: 10px;
+}
+
+
+.form-heading p {
+    font-size: 14px;
+
+    color: #7b8d82;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.form-group {
+    margin-bottom: 23px;
+}
+
+
+.form-group label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    color: #3e5146;
+
+    margin-bottom: 9px;
+}
+
+
+.form-group input {
+    width: 100%;
+
+    height: 52px;
+
+    border: 1px solid #dce6df;
+
+    border-radius: 12px;
+
+    padding: 0 16px;
+
+    outline: none;
+
+    background: #fbfdfb;
+
+    color: #26332d;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.form-group input::placeholder {
+    color: #a7b3ac;
+}
+
+
+.form-group input:hover {
+    border-color: #b9d4c2;
+}
+
+
+.form-group input:focus {
+    border-color: #75aa89;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(117, 170, 137, 0.12);
+}
+
+
+/* =========================================
+   PASSWORD
+   ========================================= */
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.password-wrapper input {
+    padding-right: 50px;
+}
+
+
+.password-toggle {
+    position: absolute;
+
+    right: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 16px;
+
+    opacity: 0.55;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.password-toggle:hover {
+    opacity: 0.9;
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+}
+
+
+/* =========================================
+   FORM OPTIONS
+   ========================================= */
+
+.form-options {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: -7px;
+
+    margin-bottom: 25px;
+}
+
+
+.form-options a {
+    font-size: 12px;
+
+    color: #5c9270;
+
+    transition: color 0.2s ease;
+}
+
+
+.form-options a:hover {
+    color: #356c4a;
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+   ========================================= */
+
+.primary-btn {
+    position: relative;
+
+    width: 100%;
+    height: 53px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #5f9771;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.primary-btn:hover {
+    background: #4f8562;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(79, 133, 98, 0.22);
+}
+
+
+.primary-btn:active {
+    transform: translateY(0);
+}
+
+
+.btn-arrow {
+    transition: transform 0.25s ease;
+}
+
+
+.primary-btn:hover .btn-arrow {
+    transform: translateX(5px);
+}
+
+
+/* =========================================
+   SIGNUP
+   ========================================= */
+
+.signup-link {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-top: 27px;
+
+    font-size: 13px;
+
+    color: #87958d;
+}
+
+
+.signup-link a {
+    color: #4f8562;
+
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+
+
+.signup-link a:hover {
+    color: #315f42;
+}
+
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes visualEnter {
+
+    from {
+        opacity: 0;
+        transform: translateX(-35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes formEnter {
+
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+
+    .auth-visual {
+        display: none;
+    }
+
+
+    .auth-form-section {
+        padding: 40px 25px;
+    }
+
+
+    .mobile-brand {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+
+        margin-bottom: 45px;
+    }
+
+
+    .mobile-brand span {
+        font-size: 24px;
+
+        font-weight: 700;
+
+        color: #294c38;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .auth-form-section {
+        padding: 30px 20px;
+    }
+
+
+    .form-heading h2 {
+        font-size: 29px;
+    }
+}
+
+
+/* =========================================
+   OTP
+   ========================================= */
+
+.otp-container {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-bottom: 28px;
+}
+
+
+.otp-input {
+    width: 52px;
+    height: 56px;
+
+    border: 1px solid #dce5df;
+
+    border-radius: 11px;
+
+    background: #fbfdfb;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    color: #365c43;
+}
+
+
+.otp-input:focus {
+    border-color: #70a481;
+
+    box-shadow:
+        0 0 0 4px rgba(112, 164, 129, 0.11);
+
+    outline: none;
+}

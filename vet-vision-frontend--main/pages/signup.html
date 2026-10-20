@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VetVision | Sign Up</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <!-- LEFT VISUAL SECTION -->
+        <section class="auth-visual">
+
+            <div class="visual-content">
+
+                <img
+                    src="../assets/logo.jpeg"
+                    alt="VetVision"
+                    class="login-logo"
+                >
+
+                <div class="visual-message">
+
+                    <h1>
+                        Join VetVision.<br>
+                        Care Smarter.
+                    </h1>
+
+                    <p>
+                        Create your account to get started.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT SIGN UP SECTION -->
+        <section class="auth-form-section">
+
+            <div class="login-container">
+
+                <div class="form-heading">
+
+                    <h2>Create Account</h2>
+
+                    <p>
+                        Create your VetVision account
+                    </p>
+
+                </div>
+
+
+                <form id="signupForm">
+
+                    <!-- FULL NAME -->
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SIGN UP BUTTON -->
+                    <button
+                        type="submit"
+                        class="primary-button login-button"
+                        id="signupButton"
+                    >
+                        <span>Sign Up</span>
+                        <span>→</span>
+                    </button>
+
+
+                    <!-- BACKEND MESSAGE -->
+                    <p
+                        id="signupMessage"
+                        class="auth-message"
+                        aria-live="polite"
+                    ></p>
+
+                </form>
+
+
+                <!-- LOGIN -->
+                <div class="signup-link">
+
+                    <span>
+                        Already have an account?
+                    </span>
+
+                    <a href="../index.html">
+                        Login
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- SCRIPTS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+
+</body>
+
+</html>

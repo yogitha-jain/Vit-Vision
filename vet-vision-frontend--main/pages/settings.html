@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings - VetVision</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/settings.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">◷</span>
+                <span>History</span>
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">○</span>
+                <span>Profile</span>
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link active"
+            >
+                <span class="sidebar-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+
+            <a
+                href="../index.html"
+                class="sidebar-link"
+            >
+                <span class="sidebar-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+
+        <div class="settings-page">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="settings-page-header">
+
+                <h1>
+                    Settings
+                </h1>
+
+                <p>
+                    Manage your account settings.
+                </p>
+
+            </div>
+
+
+
+            <!-- CHANGE PASSWORD -->
+
+            <section class="settings-card">
+
+                <div class="settings-card-heading">
+
+                    <h2>
+                        Change Password
+                    </h2>
+
+                    <p>
+                        Update your account password.
+                    </p>
+
+                </div>
+
+
+
+                <form
+                    id="passwordForm"
+                    class="password-form"
+                >
+
+
+                    <div class="settings-field">
+
+                        <label for="currentPassword">
+                            Current Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="currentPassword"
+                            name="currentPassword"
+                            placeholder="Enter current password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="settings-field">
+
+                        <label for="newPassword">
+                            New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="newPassword"
+                            name="newPassword"
+                            placeholder="Enter new password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="settings-field">
+
+                        <label for="confirmPassword">
+                            Confirm New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm new password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <button
+                        type="submit"
+                        class="settings-button"
+                        id="changePasswordBtn"
+                    >
+                        Change Password
+                    </button>
+
+
+                    <p
+                        id="passwordMessage"
+                        class="settings-message"
+                    ></p>
+
+
+                </form>
+
+            </section>
+
+
+
+            <!-- LOGOUT -->
+
+            <section class="settings-card logout-card">
+
+                <div>
+
+                    <h2>
+                        Logout
+                    </h2>
+
+                    <p>
+                        Sign out of your VetVision account.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="logout-button"
+                    id="logoutBtn"
+                >
+                    Logout
+                </button>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script src="../js/config.js"></script>
+
+<script src="../js/main.js"></script>
+
+<script src="../js/settings.js"></script>
+
+
+</body>
+
+</html>

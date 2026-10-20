@@ -1,0 +1,9 @@
+venv/
+venv_new/
+__pycache__/
+*.pth
+*.h5
+*.keras
+.env
+node_modules/
+.pytest_cache/

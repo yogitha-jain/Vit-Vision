@@ -1,0 +1,382 @@
+/* =========================================================
+   VETVISION - SETTINGS
+========================================================= */
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.settings-page {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+
+.settings-page-header {
+    margin-bottom: 28px;
+}
+
+
+.settings-page-header h1 {
+    margin: 0;
+
+    color: #30483b;
+
+    font-size: 36px;
+
+    line-height: 1.15;
+
+    font-weight: 700;
+
+    letter-spacing: -0.6px;
+}
+
+
+.settings-page-header p {
+    margin: 8px 0 0;
+
+    color: #718078;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SETTINGS CARD
+========================================================= */
+
+.settings-card {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 28px 30px;
+
+    margin-bottom: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe8e1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(
+            57,
+            88,
+            66,
+            0.06
+        );
+}
+
+
+.settings-card-heading {
+    margin-bottom: 24px;
+}
+
+
+.settings-card h2 {
+    margin: 0;
+
+    color: #30483b;
+
+    font-size: 22px;
+
+    font-weight: 650;
+}
+
+
+.settings-card-heading p {
+    margin: 6px 0 0;
+
+    color: #7b887f;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PASSWORD FORM
+========================================================= */
+
+.password-form {
+    width: 100%;
+
+    max-width: 650px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 17px;
+}
+
+
+.settings-field {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.settings-field label {
+    color: #506158;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.settings-field input {
+    width: 100%;
+
+    height: 46px;
+
+    box-sizing: border-box;
+
+    padding: 0 14px;
+
+    border: 1px solid #d9e3dc;
+
+    border-radius: 10px;
+
+    background: #fafcfb;
+
+    color: #30483b;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.settings-field input::placeholder {
+    color: #a0aaa4;
+}
+
+
+.settings-field input:hover {
+    background: #ffffff;
+
+    border-color: #c9d8cd;
+}
+
+
+.settings-field input:focus {
+    background: #ffffff;
+
+    border-color: #78a287;
+
+    box-shadow:
+        0 0 0 3px rgba(
+            120,
+            162,
+            135,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   CHANGE PASSWORD BUTTON
+========================================================= */
+
+.settings-button {
+    width: fit-content;
+
+    min-width: 170px;
+
+    height: 44px;
+
+    margin-top: 3px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #5f9671;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.settings-button:hover {
+    background: #4f8461;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px rgba(
+            79,
+            132,
+            97,
+            0.18
+        );
+}
+
+
+.settings-button:active {
+    transform: translateY(0);
+}
+
+
+.settings-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.settings-message {
+    min-height: 18px;
+
+    margin: 0;
+
+    font-size: 13px;
+}
+
+
+.settings-message.success {
+    color: #4f8060;
+}
+
+
+.settings-message.error {
+    color: #a26464;
+}
+
+
+/* =========================================================
+   LOGOUT CARD
+========================================================= */
+
+.logout-card {
+    min-height: 92px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.logout-card h2 {
+    margin: 0;
+}
+
+
+.logout-card p {
+    margin: 6px 0 0;
+
+    color: #7b887f;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+========================================================= */
+
+.logout-button {
+    flex-shrink: 0;
+
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: 1px solid #d6e1d8;
+
+    border-radius: 10px;
+
+    background: #f4f8f5;
+
+    color: #557060;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.logout-button:hover {
+    background: #e8f1ea;
+
+    border-color: #c9dacd;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .settings-card {
+        padding: 22px;
+    }
+
+
+    .logout-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .logout-button {
+        width: 100%;
+    }
+
+}

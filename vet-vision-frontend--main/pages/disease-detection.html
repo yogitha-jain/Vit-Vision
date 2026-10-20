@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Disease Detection - VetVision</title>
+
+
+    <link
+        rel="stylesheet"
+        href="../css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/detection.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- =================================
+         SIDEBAR
+    ================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+
+            <a
+                href="dashboard.html"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="history.html"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-icon">
+                    ▣
+                </span>
+
+                History
+
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-icon">
+                    ◯
+                </span>
+
+                Profile
+
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="../index.html"
+                class="sidebar-link logout-link"
+                id="logoutLink"
+            >
+
+                <span class="sidebar-icon">
+                    ↪
+                </span>
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================
+         MAIN CONTENT
+    ================================== -->
+
+    <main class="main-content page-enter">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+
+        <div class="detection-container">
+
+
+            <!-- =================================
+                 PAGE HEADING
+            ================================== -->
+
+            <div class="page-heading">
+
+                <h1>
+                    Disease Detection
+                </h1>
+
+                <p>
+                    Upload an image to detect possible diseases.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 UPLOAD SECTION
+            ================================== -->
+
+            <section class="detection-card">
+
+                <div class="upload-section">
+
+
+                    <!-- Upload box -->
+
+                    <div
+                        class="upload-box"
+                        id="uploadBox"
+                    >
+
+                        <div class="upload-icon">
+                            +
+                        </div>
+
+
+                        <h3>
+                            Upload Animal Image
+                        </h3>
+
+
+                        <p>
+                            Select an image of the selected animal
+                        </p>
+
+
+                        <input
+                            type="file"
+                            id="imageInput"
+                            accept="image/*"
+                            hidden
+                        >
+
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            id="chooseImageBtn"
+                        >
+                            Choose Image
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =================================
+                         IMAGE PREVIEW
+                    ================================== -->
+
+                    <div
+                        class="image-preview-container"
+                        id="previewContainer"
+                        style="display: none;"
+                    >
+
+                        <img
+                            id="imagePreview"
+                            src=""
+                            alt="Selected animal"
+                        >
+
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="changeImageBtn"
+                        >
+                            Change Image
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- =================================
+                         ANALYZE BUTTON
+                    ================================== -->
+
+                    <button
+                        type="button"
+                        class="primary-button analyze-button"
+                        id="analyzeBtn"
+                        disabled
+                    >
+                        Analyze Image
+                    </button>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 DISEASE RESULT
+            ================================== -->
+
+            <section
+                class="result-section"
+                id="resultSection"
+                style="display: none;"
+            >
+
+                <div class="result-card">
+
+
+                    <div class="result-header">
+
+                        <h2>
+                            Disease Detection Result
+                        </h2>
+
+                    </div>
+
+
+
+                    <!--
+                        Actual backend disease result
+                        will appear here.
+                    -->
+
+                    <div id="resultContent">
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =================================
+     JAVASCRIPT
+================================== -->
+
+<script src="../js/config.js"></script>
+
+<script src="../js/main.js"></script>
+
+<script src="../js/detection.js"></script>
+
+
+</body>
+
+</html>

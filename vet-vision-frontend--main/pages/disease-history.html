@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Disease Detection - VetVision</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/history.css">
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="../assets/logo.jpeg"
+                alt="VetVision"
+            >
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="history.html"
+                class="active"
+            >
+                History
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+            <a href="../index.html">
+                Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <button
+            type="button"
+            class="back-button"
+            onclick="history.back()"
+        >
+            ← Back
+        </button>
+
+
+
+        <div class="history-detail-container">
+
+
+            <div class="page-heading">
+
+                <h1>
+                    Disease Detection
+                </h1>
+
+                <p>
+                    Detection details
+                </p>
+
+            </div>
+
+
+
+            <!-- DISEASE RESULT -->
+
+            <section
+                class="history-detail-card"
+                id="diseaseHistoryContent"
+            >
+
+                <div class="history-loading">
+                    Loading...
+                </div>
+
+            </section>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                class="history-error"
+                id="diseaseHistoryError"
+            ></div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- API CONFIG -->
+
+<script src="../js/config.js"></script>
+
+<!-- COMMON JS -->
+
+<script src="../js/main.js"></script>
+
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadDiseaseHistory
+);
+
+
+
+async function loadDiseaseHistory() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const id =
+        params.get("id");
+
+
+    const content =
+        document.getElementById(
+            "diseaseHistoryContent"
+        );
+
+
+    const error =
+        document.getElementById(
+            "diseaseHistoryError"
+        );
+
+
+    /*
+        A record ID is required.
+    */
+
+    if (!id) {
+
+        content.innerHTML = `
+
+            <p>
+                Detection record was not specified.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    try {
+
+        const baseURL =
+            window.VETVISION_API_BASE_URL ||
+            "";
+
+
+        /*
+            Get the actual disease
+            history record.
+        */
+
+        const response =
+            await fetch(
+
+                `${baseURL}/api/history/disease/${encodeURIComponent(id)}`,
+
+                {
+
+                    method: "GET",
+
+                    credentials:
+                        "include"
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load this detection record."
+            );
+
+        }
+
+
+        /*
+            Actual backend data.
+        */
+
+        const record =
+            await response.json();
+
+
+        /*
+            Render only values returned
+            by the backend.
+        */
+
+        content.innerHTML = `
+
+            ${
+                record.imageUrl
+                    ? `
+
+                        <div class="history-image">
+
+                            <img
+                                src="${escapeHTML(
+                                    record.imageUrl
+                                )}"
+                                alt="Animal"
+                            >
+
+                        </div>
+
+                      `
+                    : ""
+            }
+
+
+            <div class="history-detail-info">
+
+
+                ${
+                    record.animalType
+                        ? `
+
+                            <div class="history-detail-row">
+
+                                <span>
+                                    Animal
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        record.animalType
+                                    )}
+                                </strong>
+
+                            </div>
+
+                          `
+                        : ""
+                }
+
+
+
+                ${
+                    record.disease
+                        ? `
+
+                            <div class="history-detail-row">
+
+                                <span>
+                                    Result
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        record.disease
+                                    )}
+                                </strong>
+
+                            </div>
+
+                          `
+                        : ""
+                }
+
+
+
+                ${
+                    record.confidence !==
+                        undefined &&
+                    record.confidence !== null
+                        ? `
+
+                            <div class="history-detail-row">
+
+                                <span>
+                                    Confidence
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        String(
+                                            record.confidence
+                                        )
+                                    )}
+                                </strong>
+
+                            </div>
+
+                          `
+                        : ""
+                }
+
+
+
+                ${
+                    record.createdAt
+                        ? `
+
+                            <div class="history-detail-row">
+
+                                <span>
+                                    Date
+                                </span>
+
+                                <strong>
+                                    ${formatDate(
+                                        record.createdAt
+                                    )}
+                                </strong>
+
+                            </div>
+
+                          `
+                        : ""
+                }
+
+
+            </div>
+
+        `;
+
+    }
+
+
+    catch (err) {
+
+        error.textContent =
+            err.message ||
+            "Unable to load detection.";
+
+    }
+
+}
+
+
+
+/* =========================================
+   DATE FORMAT
+========================================= */
+
+function formatDate(
+    value
+) {
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return escapeHTML(
+            String(value)
+        );
+
+    }
+
+
+    return date.toLocaleString();
+
+}
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(
+    value
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value ?? "";
+
+
+    return div.innerHTML;
+
+}
+
+</script>
+
+</body>
+
+</html>
