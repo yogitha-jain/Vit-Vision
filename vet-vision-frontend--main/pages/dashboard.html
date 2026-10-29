@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../js/config.js"></script>
+    <script src="../js/session-guard.js"></script>
 </head>
 
 <body>
@@ -84,11 +86,11 @@
 
         <section class="dashboard-heading">
 
-            <p class="small-heading">
+            <p class="small-heading" id="welcomeSmall">
                 Welcome to
             </p>
 
-            <h1>VetVision 🐾</h1>
+            <h1 id="welcomeTitle">VetVision 🐾</h1>
 
             <p>
                 Choose what you would like to analyze.
@@ -96,6 +98,47 @@
 
         </section>
 
+
+        <!-- STATS -->
+
+        <section class="dashboard-stats" id="dashboardStats">
+
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-text">
+                    <strong id="statTotal">–</strong>
+                    <span>Total scans</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🐾</div>
+                <div class="stat-text">
+                    <strong id="statBreed">–</strong>
+                    <span>Breed scans</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🩺</div>
+                <div class="stat-text">
+                    <strong id="statDisease">–</strong>
+                    <span>Disease scans</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-text">
+                    <strong id="statAnimal">–</strong>
+                    <span>Most scanned</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
 
         <section class="dashboard-cards">
 
@@ -144,9 +187,28 @@
 
         </section>
 
+
+        <!-- RECENT SCANS -->
+
+        <section class="recent-section">
+
+            <div class="recent-header">
+                <h2>Recent scans</h2>
+                <a href="history.html" class="recent-link">View all →</a>
+            </div>
+
+            <div class="recent-grid" id="recentScans">
+                <div class="recent-message">Loading...</div>
+            </div>
+
+        </section>
+
     </main>
 
 </div>
+
+<script src="../js/main.js"></script>
+<script src="../js/dashboard.js"></script>
 
 </body>
 

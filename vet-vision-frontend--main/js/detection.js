@@ -319,6 +319,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
                     }
 
+                    await saveToHistory(detectionType, selectedAnimal, resultData);
+
                     goToResultPage(detectionType);
 
                 }
@@ -771,5 +773,105 @@ function buildResultData(detectionType, animal, imageUrl, result) {
         diseaseDisplay: prettyLabel(result.disease)
 
     });
+
+}
+
+
+/* =========================================
+   SAVE TO HISTORY
+   ========================================= */
+
+function makeThumbnail(dataUrl) {
+
+    return new Promise(resolve => {
+
+        const img = new Image();
+
+        img.onload = () => {
+
+            const MAX = 400;
+            const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+            const canvas = document.createElement("canvas");
+
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+
+            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            resolve(canvas.toDataURL("image/jpeg", 0.6));
+
+        };
+
+        img.onerror = () => resolve("");
+
+        img.src = dataUrl;
+
+    });
+
+}
+
+
+/* Never blocks or breaks detection: if saving fails, the result page still opens. */
+
+async function saveToHistory(detectionType, animal, resultData) {
+
+    const base =
+        (window.VETVISION_API_BASE_URL ||
+            "http://" + (window.location.hostname || "127.0.0.1") + ":5000")
+            .replace(/\/$/, "");
+
+    try {
+
+        const thumbnail = await makeThumbnail(resultData.imageUrl);
+
+        const stored = Object.assign({}, resultData);
+        delete stored.imageUrl;
+
+        const entry = {
+            type: detectionType,
+            animal: animal,
+            imageUrl: thumbnail,
+            result: stored
+        };
+
+        if (detectionType === "breed") {
+            entry.breed = resultData.breed;
+            entry.breedConfidence = resultData.confidenceValue;
+        } else {
+            entry.disease = resultData.diseaseDisplay;
+            entry.diseaseConfidence = resultData.confidenceValue;
+        }
+
+        const petId = sessionStorage.getItem("vetvisionPetId");
+
+        if (petId) {
+            entry.petId = petId;
+        }
+
+        const response = await fetch(base + "/api/history", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(entry)
+        });
+
+        if (!response.ok) {
+
+            const body = await response.text();
+
+            console.error(
+                "VetVision: history save failed (" + response.status + "):",
+                body
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error("VetVision: could not save to history.", error);
+
+    }
 
 }

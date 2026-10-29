@@ -353,6 +353,8 @@ function initializeSettings() {
             sessionStorage.removeItem(
                 "vetvisionRecommendationResult"
             );
+            sessionStorage.removeItem("vetvisionDetectionResult");
+            sessionStorage.removeItem("vetvisionDiseaseResult");
 
             localStorage.removeItem(
                 "selectedAnimal"

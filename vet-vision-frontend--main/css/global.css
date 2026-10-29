@@ -1,11 +1,33 @@
 /* =========================================================
-   VETVISION GLOBAL STYLES
+   VETVISION GLOBAL STYLES  -  Lavender & Plum (no white)
    ========================================================= */
 
+:root {
+    --primary: #7C3AED;
+    --primary-dark: #6D28D9;
+    --primary-soft: #E4D0FF;
 
-/* =========================================================
-   RESET
-   ========================================================= */
+    --lavender: #F3E8FF;
+    --lavender-light: #EBDDFF;
+
+    --peach: #FDBA74;
+    --peach-deep: #FB923C;
+    --peach-soft: #FFE4CC;
+
+    --text: #4C0519;
+    --text-soft: #7A4A62;
+    --text-faint: #A98699;
+
+    --border: #D8BFFA;
+    --surface: #F6EDFF;
+    --glass: rgba(246, 237, 255, 0.78);
+
+    --danger: #E11D48;
+    --danger-soft: #FFE3E8;
+
+    --shadow-color: 124, 58, 237;
+}
+
 
 * {
     margin: 0;
@@ -19,8 +41,8 @@ html {
 
 body {
     font-family: "Poppins", sans-serif;
-    background: #f5f7f1;
-    color: #29382f;
+    background: var(--lavender-light);
+    color: var(--text);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
 }
@@ -50,89 +72,49 @@ img {
     display: block;
 }
 
-
-/* =========================================================
-   TEXT SELECTION
-   ========================================================= */
-
 ::selection {
-    background: #c6dcca;
-    color: #24372b;
+    background: var(--peach);
+    color: var(--text);
 }
 
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
-
 ::-webkit-scrollbar {
-    width: 7px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f4ef;
+    background: var(--lavender-light);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #b4cbb8;
+    background: #BC9BF2;
     border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #8eac95;
+    background: var(--primary);
 }
 
 
-/* =========================================================
-   PAGE ANIMATIONS
-   ========================================================= */
+/* ---------- ANIMATIONS ---------- */
 
 @keyframes pageFade {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.94);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
 }
 
 .page-enter {
@@ -140,14 +122,12 @@ img {
 }
 
 
-/* =========================================================
-   COMMON BUTTON
-   ========================================================= */
+/* ---------- BUTTONS ---------- */
 
 .primary-button {
     border: none;
-    background: #5e8f6d;
-    color: white;
+    background: var(--primary);
+    color: #ffffff;
     border-radius: 11px;
     padding: 13px 24px;
     font-size: 14px;
@@ -156,9 +136,9 @@ img {
 }
 
 .primary-button:hover {
-    background: #4c7d5b;
+    background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 9px 22px rgba(76, 125, 91, 0.2);
+    box-shadow: 0 9px 22px rgba(var(--shadow-color), 0.3);
 }
 
 .primary-button:disabled {
@@ -167,53 +147,38 @@ img {
     box-shadow: none;
 }
 
-
-/* =========================================================
-   BACK BUTTON
-   ========================================================= */
-
 .back-button {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-
     border: none;
     background: transparent;
-
-    color: #60776a;
-
+    color: var(--text-soft);
     font-size: 13px;
     font-weight: 500;
-
     padding: 6px 0;
     margin-bottom: 25px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .back-button:hover {
-    color: #315f42;
+    color: var(--primary);
     transform: translateX(-4px);
 }
 
 
-/* =========================================================
-   APPLICATION LAYOUT
-   ========================================================= */
+/* ---------- APP LAYOUT (lighter overlay: image shows) ---------- */
 
 .app-layout {
     min-height: 100vh;
     display: flex;
     width: 100%;
-
     position: relative;
 
     background:
         linear-gradient(
-            rgba(245, 248, 243, 0.88),
-            rgba(245, 248, 243, 0.88)
+            rgba(226, 205, 252, 0.62),
+            rgba(253, 226, 204, 0.50)
         ),
         url("../assets/background.jpeg");
 
@@ -223,42 +188,30 @@ img {
 }
 
 
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
+/* ---------- SIDEBAR (gradient, not white) ---------- */
 
 .sidebar {
     width: 245px;
     min-height: 100vh;
-
     position: fixed;
     left: 0;
     top: 0;
 
-    background: #ffffff;
-
-    border-right: 1px solid #e4ebe5;
+    background: linear-gradient(180deg, #E6D3FF 0%, #F1DBF3 60%, #FFE0C7 100%);
+    border-right: 1px solid var(--border);
 
     padding: 28px 17px;
-
     display: flex;
     flex-direction: column;
-
     z-index: 1000;
-
     animation: slideLeft 0.55s ease both;
 }
 
-
-/* ---------- SIDEBAR LOGO ---------- */
-
 .sidebar-logo {
     width: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding-bottom: 28px;
 }
 
@@ -266,117 +219,73 @@ img {
     width: 145px;
     height: auto;
     object-fit: contain;
+    border-radius: 12px;
 }
-
-
-/* =========================================================
-   SIDEBAR NAVIGATION
-   ========================================================= */
 
 .sidebar-menu {
     width: 100%;
-
     display: flex;
     flex-direction: column;
-
     gap: 7px;
 }
-
-
-/* ---------- SIDEBAR LINK ---------- */
 
 .sidebar-link {
     display: flex;
     align-items: center;
-
     gap: 13px;
-
     width: 100%;
-
     padding: 12px 14px;
-
     border-radius: 10px;
-
-    color: #718177;
-
+    color: var(--text-soft);
     font-size: 13px;
     font-weight: 500;
-
-    transition:
-        background-color 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease,
+                transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .sidebar-link:hover {
-    background: #edf5ee;
-    color: #42694e;
-
+    background: rgba(124, 58, 237, 0.10);
+    color: var(--primary-dark);
     transform: translateX(3px);
 }
 
 .sidebar-link.active {
-    background: #e7f1e9;
-    color: #3e7150;
-
+    background: rgba(124, 58, 237, 0.18);
+    color: var(--primary-dark);
     font-weight: 600;
-
-    box-shadow: inset 3px 0 0 #6f9f80;
+    box-shadow: inset 3px 0 0 var(--primary);
 }
-
-
-/* ---------- SIDEBAR ICON ---------- */
 
 .sidebar-icon {
     width: 21px;
     min-width: 21px;
-
     text-align: center;
-
     font-size: 16px;
 }
-
-
-/* ---------- SIDEBAR BOTTOM ---------- */
 
 .sidebar-bottom {
     margin-top: auto;
 }
 
-
-/* ---------- LOGOUT ---------- */
-
 .logout-link {
-    color: #8b716e;
+    color: #A0485F;
 }
 
 .logout-link:hover {
-    background: #f7eeee;
-    color: #8b4e48;
+    background: var(--danger-soft);
+    color: var(--danger);
 }
 
 
-/* =========================================================
-   MAIN APPLICATION CONTENT
-   ========================================================= */
+/* ---------- MAIN CONTENT ---------- */
 
 .main-content {
     width: calc(100% - 245px);
-
     min-height: 100vh;
-
     margin-left: 245px;
-
     padding: 38px 50px;
-
     position: relative;
 }
-
-
-/* =========================================================
-   PAGE HEADING
-   ========================================================= */
 
 .page-heading {
     margin-bottom: 28px;
@@ -384,140 +293,84 @@ img {
 
 .page-heading h1 {
     margin: 0 0 6px;
-
     font-size: 32px;
     line-height: 1.2;
-
-    color: #243d32;
+    color: var(--text);
 }
 
 .page-heading p {
     margin: 0;
-
-    color: #718078;
-
+    color: var(--text-soft);
     font-size: 15px;
 }
 
-
-/* =========================================================
-   COMMON LOADING / MESSAGE STYLES
-   ========================================================= */
-
 .auth-message {
     min-height: 20px;
-
     margin-top: 12px;
-
     font-size: 13px;
-
     text-align: center;
 }
 
 .auth-message-error {
-    color: #a24d4d;
+    color: var(--danger);
 }
 
 .auth-message-success {
-    color: #477653;
+    color: var(--primary-dark);
 }
 
 
-/* =========================================================
-   SIDEBAR COMPATIBILITY
-   Supports older pages using .sidebar-nav
-   ========================================================= */
+/* ---------- OLDER SIDEBAR (.sidebar-nav) ---------- */
 
 .sidebar-nav {
     display: flex;
     flex-direction: column;
-
     gap: 6px;
-
     width: 100%;
 }
 
 .sidebar-nav a {
     display: flex;
     align-items: center;
-
     width: 100%;
-
     box-sizing: border-box;
-
     padding: 12px 16px;
-
-    color: #607169;
-
-    text-decoration: none;
-
+    color: var(--text-soft);
     border-radius: 10px;
-
     font-size: 14px;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .sidebar-nav a:hover {
-    background: #edf4ef;
-    color: #3f7050;
+    background: rgba(124, 58, 237, 0.10);
+    color: var(--primary-dark);
 }
 
 .sidebar-nav a.active {
-    background: #e7f0e9;
-    color: #3f7050;
-
+    background: rgba(124, 58, 237, 0.18);
+    color: var(--primary-dark);
     font-weight: 600;
 }
 
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+/* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 900px) {
-
-    .sidebar {
-        width: 210px;
-    }
-
+    .sidebar { width: 210px; }
     .main-content {
         width: calc(100% - 210px);
-
         margin-left: 210px;
-
         padding: 30px;
     }
 }
 
-
 @media (max-width: 650px) {
-
-    .sidebar {
-        width: 190px;
-
-        padding: 22px 12px;
-    }
-
-    .sidebar-logo img {
-        width: 125px;
-    }
-
-    .sidebar-link {
-        padding: 11px 10px;
-
-        gap: 9px;
-
-        font-size: 12px;
-    }
-
+    .sidebar { width: 190px; padding: 22px 12px; }
+    .sidebar-logo img { width: 125px; }
+    .sidebar-link { padding: 11px 10px; gap: 9px; font-size: 12px; }
     .main-content {
         width: calc(100% - 190px);
-
         margin-left: 190px;
-
         padding: 25px 20px;
     }
 }

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Pets - VetVision</title>
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/pets.css">
+
+    <script src="../js/config.js"></script>
+    <script src="../js/session-guard.js"></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <img src="../assets/logo.jpeg" alt="VetVision">
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="sidebar-link">
+                <span class="sidebar-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="history.html" class="sidebar-link">
+                <span class="sidebar-icon">▣</span>
+                History
+            </a>
+
+            <a href="profile.html" class="sidebar-link">
+                <span class="sidebar-icon">◯</span>
+                Profile
+            </a>
+
+            <a href="settings.html" class="sidebar-link">
+                <span class="sidebar-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../index.html" class="sidebar-link logout-link">
+                <span class="sidebar-icon">↪</span>
+                Logout
+            </a>
+        </div>
+
+    </aside>
+
+
+    <main class="main-content page-enter">
+
+        <div class="pets-page">
+
+            <div class="page-heading">
+                <h1>My Pets</h1>
+                <p>Save your animals and track their scans over time.</p>
+            </div>
+
+
+            <!-- ADD PET -->
+
+            <section class="pet-form-card">
+
+                <h2>Add a pet</h2>
+
+                <form id="petForm" class="pet-form" autocomplete="off">
+
+                    <div class="pet-field">
+                        <label for="petName">Name</label>
+                        <input type="text" id="petName" maxlength="60" placeholder="e.g. Bruno" required>
+                    </div>
+
+                    <div class="pet-field">
+                        <label for="petAnimal">Animal</label>
+                        <select id="petAnimal">
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="cattle">Cattle</option>
+                        </select>
+                    </div>
+
+                    <div class="pet-field">
+                        <label for="petBreed">Breed (optional)</label>
+                        <input type="text" id="petBreed" maxlength="100" placeholder="e.g. Labrador">
+                    </div>
+
+                    <div class="pet-field">
+                        <label for="petAge">Age group</label>
+                        <select id="petAge">
+                            <option value="">Not sure</option>
+                            <option value="young">Young</option>
+                            <option value="adult">Adult</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                    </div>
+
+                    <div class="pet-field pet-field-wide">
+                        <label for="petPhoto">Photo (optional)</label>
+                        <input type="file" id="petPhoto" accept="image/*">
+                    </div>
+
+                    <div class="pet-form-actions">
+                        <button type="submit" class="primary-button" id="petSubmit">Add pet</button>
+                        <span class="pet-form-message" id="petFormMessage"></span>
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- PET LIST -->
+
+            <section>
+
+                <h2 class="pets-section-title">Your pets</h2>
+
+                <div class="pets-grid" id="petsGrid">
+                    <div class="pets-message">Loading...</div>
+                </div>
+
+            </section>
+
+
+            <!-- TIMELINE -->
+
+            <section class="timeline-section" id="timelineSection" style="display:none;">
+
+                <div class="timeline-header">
+                    <h2 id="timelineTitle">Timeline</h2>
+                    <button type="button" class="timeline-close" id="timelineClose">Close</button>
+                </div>
+
+                <p class="timeline-summary" id="timelineSummary"></p>
+
+                <div class="timeline-list" id="timelineList"></div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="../js/main.js"></script>
+<script src="../js/pets.js"></script>
+
+</body>
+
+</html>

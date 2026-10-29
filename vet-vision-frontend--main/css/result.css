@@ -143,6 +143,83 @@
 
 
 /* =========================================================
+   TOOLS (PDF REPORT + NEARBY VETS)
+   ========================================================= */
+
+.result-tools {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+.tool-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 20px;
+
+    border-radius: 11px;
+
+    border: 1px solid #5e8f6d;
+
+    background: #5e8f6d;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.tool-button:hover {
+    background: #4c7d5b;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(76, 125, 91, 0.18);
+}
+
+
+.tool-button:disabled {
+    opacity: 0.65;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+.tool-button.secondary {
+    background: #ffffff;
+
+    color: #3f7050;
+
+    border-color: #cfded3;
+}
+
+
+.tool-button.secondary:hover {
+    background: #edf5ee;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
    ACTION
    ========================================================= */
 
@@ -185,6 +262,13 @@
 
     .result-row:last-child {
         border-bottom: none;
+    }
+
+
+    .tool-button {
+        width: 100%;
+
+        justify-content: center;
     }
 
 }

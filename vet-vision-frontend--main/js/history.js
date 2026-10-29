@@ -7,9 +7,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let historyRecords = [];
     let currentFilter = "all";
+    let currentAnimal = "all";
     let currentSearch = "";
+    let animalSelect = null;
 
+    const ANIMAL_ICONS = { dog: "🐶", cat: "🐱", cattle: "🐄" };
+
+    buildAnimalFilter();
     loadHistory();
+
+    // ---------------------------------------
+    // ANIMAL FILTER (added by JS, no HTML change)
+    // ---------------------------------------
+
+    function buildAnimalFilter() {
+        if (!historySearch || !historySearch.parentNode) return;
+
+        const right = document.createElement("div");
+        right.className = "history-toolbar-right";
+
+        animalSelect = document.createElement("select");
+        animalSelect.className = "history-animal-filter";
+        animalSelect.innerHTML = '<option value="all">All animals</option>';
+
+        animalSelect.addEventListener("change", () => {
+            currentAnimal = animalSelect.value;
+            renderHistory();
+        });
+
+        historySearch.parentNode.insertBefore(right, historySearch);
+        right.appendChild(animalSelect);
+        right.appendChild(historySearch);
+    }
+
+    function refreshAnimalOptions() {
+        if (!animalSelect) return;
+
+        const animals = Array.from(
+            new Set(
+                historyRecords
+                    .map(r => String(r.animal || "").toLowerCase())
+                    .filter(Boolean)
+            )
+        ).sort();
+
+        animalSelect.innerHTML = '<option value="all">All animals</option>';
+
+        animals.forEach(a => {
+            const option = document.createElement("option");
+            option.value = a;
+            option.textContent = capitalize(a);
+            animalSelect.appendChild(option);
+        });
+
+        animalSelect.value = animals.includes(currentAnimal) ? currentAnimal : "all";
+        currentAnimal = animalSelect.value;
+    }
 
     // ---------------------------------------
     // LOAD HISTORY FROM BACKEND
@@ -32,25 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            /*
-             * Backend may return:
-             * [
-             *   {...},
-             *   {...}
-             * ]
-             *
-             * OR:
-             * {
-             *   history: [...]
-             * }
-             *
-             * OR:
-             * {
-             *   records: [...]
-             * }
-             */
             if (Array.isArray(data)) {
                 historyRecords = data;
+            } else if (Array.isArray(data.entries)) {
+                historyRecords = data.entries;
             } else if (Array.isArray(data.history)) {
                 historyRecords = data.history;
             } else if (Array.isArray(data.records)) {
@@ -61,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 historyRecords = [];
             }
 
+            refreshAnimalOptions();
             renderHistory();
 
         } catch (error) {
@@ -110,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (historySearch) {
         historySearch.addEventListener("input", () => {
             currentSearch = historySearch.value.trim().toLowerCase();
-
             renderHistory();
         });
     }
@@ -133,25 +171,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const type = getRecordType(record);
 
-            // Filter by detection type
             if (currentFilter !== "all" && type !== currentFilter) {
                 return false;
             }
 
-            // Search
+            if (
+                currentAnimal !== "all" &&
+                String(record.animal || "").toLowerCase() !== currentAnimal
+            ) {
+                return false;
+            }
+
             if (currentSearch) {
 
                 const searchableText = [
-                    record.animalType,
                     record.animal,
                     record.breed,
                     record.disease,
-                    record.result,
-                    record.analysisType,
-                    record.detectionType,
-                    record.type,
-                    formatDate(record.createdAt),
-                    formatDate(record.date)
+                    type === "breed" ? "breed detection" : "disease detection",
+                    formatDate(record.createdAt)
                 ]
                     .filter(Boolean)
                     .join(" ")
@@ -165,36 +203,22 @@ document.addEventListener("DOMContentLoaded", () => {
             return true;
         });
 
-        // No records
         if (filteredRecords.length === 0) {
 
             if (historyEmpty) {
                 historyEmpty.style.display = "block";
 
-                const emptyTitle =
-                    historyEmpty.querySelector("h3");
-
-                const emptyText =
-                    historyEmpty.querySelector("p");
+                const emptyTitle = historyEmpty.querySelector("h3");
+                const emptyText = historyEmpty.querySelector("p");
 
                 if (historyRecords.length === 0) {
-                    if (emptyTitle) {
-                        emptyTitle.textContent = "No history available";
-                    }
-
-                    if (emptyText) {
-                        emptyText.textContent =
-                            "Your completed analyses will appear here.";
-                    }
+                    if (emptyTitle) emptyTitle.textContent = "No history available";
+                    if (emptyText) emptyText.textContent =
+                        "Your completed analyses will appear here.";
                 } else {
-                    if (emptyTitle) {
-                        emptyTitle.textContent = "No matching records";
-                    }
-
-                    if (emptyText) {
-                        emptyText.textContent =
-                            "Try changing the filter or search term.";
-                    }
+                    if (emptyTitle) emptyTitle.textContent = "No matching records";
+                    if (emptyText) emptyText.textContent =
+                        "Try changing the filter or search term.";
                 }
             }
 
@@ -205,129 +229,162 @@ document.addEventListener("DOMContentLoaded", () => {
             historyEmpty.style.display = "none";
         }
 
+        // Group by date label, keeping newest first.
+        const groups = new Map();
+
         filteredRecords.forEach(record => {
-            const item = createHistoryItem(record);
-            historyList.appendChild(item);
+            const label = getGroupLabel(record.createdAt);
+            if (!groups.has(label)) groups.set(label, []);
+            groups.get(label).push(record);
+        });
+
+        groups.forEach((records, label) => {
+
+            const section = document.createElement("section");
+            section.className = "history-group";
+
+            const heading = document.createElement("h2");
+            heading.className = "history-group-title";
+            heading.textContent = label;
+
+            const grid = document.createElement("div");
+            grid.className = "history-grid";
+
+            records.forEach(record => {
+                grid.appendChild(createHistoryCard(record));
+            });
+
+            section.appendChild(heading);
+            section.appendChild(grid);
+            historyList.appendChild(section);
         });
     }
 
     // ---------------------------------------
-    // CREATE HISTORY ITEM
+    // CREATE HISTORY CARD
     // ---------------------------------------
 
-    function createHistoryItem(record) {
-
-        const item = document.createElement("div");
-
-        item.className = "history-item";
+    function createHistoryCard(record) {
 
         const type = getRecordType(record);
+        const animal = String(record.animal || "").toLowerCase();
 
-        item.dataset.type = type;
+        const card = document.createElement("div");
+        card.className = "history-card";
+        card.dataset.type = type;
 
-        // -----------------------------------
         // IMAGE
-        // -----------------------------------
+        const imageBox = document.createElement("div");
+        imageBox.className = "history-card-image";
 
-        const imageContainer =
-            document.createElement("div");
-
-        imageContainer.className = "history-image";
+        const placeholder = document.createElement("span");
+        placeholder.className = "history-card-placeholder";
+        placeholder.textContent = ANIMAL_ICONS[animal] || "🐾";
+        imageBox.appendChild(placeholder);
 
         if (record.imageUrl) {
-
-            const image =
-                document.createElement("img");
-
+            const image = document.createElement("img");
             image.src = record.imageUrl;
             image.alt = "Analysis image";
-
-            image.onerror = () => {
-                imageContainer.innerHTML = "";
-            };
-
-            imageContainer.appendChild(image);
+            image.onerror = () => image.remove();
+            imageBox.appendChild(image);
         }
 
-        // -----------------------------------
-        // INFO
-        // -----------------------------------
+        const badge = document.createElement("span");
+        badge.className = "history-card-badge " + type;
+        badge.textContent = type === "breed" ? "Breed" : "Disease";
+        imageBox.appendChild(badge);
 
-        const info =
-            document.createElement("div");
+        // BODY
+        const body = document.createElement("div");
+        body.className = "history-card-body";
 
-        info.className = "history-info";
+        const title = document.createElement("h3");
+        title.className = "history-card-title";
+        title.textContent = getRecordTitle(record, type);
 
-        // Detection type
-        const typeLabel =
-            document.createElement("span");
+        const meta = document.createElement("div");
+        meta.className = "history-card-meta";
 
-        typeLabel.className = "history-type";
+        if (animal) {
+            const chip = document.createElement("span");
+            chip.className = "history-chip";
+            chip.textContent = capitalize(animal);
+            meta.appendChild(chip);
+        }
 
-        typeLabel.textContent =
-            type === "breed"
-                ? "Breed Detection"
-                : "Disease Detection";
+        const confidence = getConfidence(record, type);
+        if (confidence) {
+            const conf = document.createElement("span");
+            conf.className = "history-chip history-chip-confidence";
+            conf.textContent = confidence + " confidence";
+            meta.appendChild(conf);
+        }
 
-        // Result title
-        const title =
-            document.createElement("h3");
+        const date = document.createElement("div");
+        date.className = "history-card-date";
+        date.textContent = formatDate(record.createdAt);
 
-        title.className = "history-title";
+        body.appendChild(title);
+        body.appendChild(meta);
+        body.appendChild(date);
 
-        title.textContent =
-            getRecordTitle(record, type);
+        // ACTIONS
+        const actions = document.createElement("div");
+        actions.className = "history-card-actions";
 
-        // Date
-        const date =
-            document.createElement("div");
-
-        date.className = "history-date";
-
-        date.textContent =
-            formatDate(
-                record.createdAt ||
-                record.date ||
-                record.timestamp
-            );
-
-        info.appendChild(typeLabel);
-        info.appendChild(title);
-        info.appendChild(date);
-
-        // -----------------------------------
-        // VIEW BUTTON
-        // -----------------------------------
-
-        const viewButton =
-            document.createElement("button");
-
+        const viewButton = document.createElement("button");
         viewButton.type = "button";
         viewButton.className = "history-view";
         viewButton.textContent = "View";
-
         viewButton.addEventListener("click", event => {
             event.stopPropagation();
             openHistoryRecord(record, type);
         });
 
-        // -----------------------------------
-        // WHOLE CARD CLICK
-        // -----------------------------------
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "history-delete";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", async event => {
+            event.stopPropagation();
 
-        item.addEventListener("click", () => {
+            if (!confirm("Delete this entry?")) return;
+
+            try {
+                const base = window.VETVISION_API_BASE_URL || "";
+                const response = await fetch(
+                    `${base}/api/history/${encodeURIComponent(record.id)}`,
+                    { method: "DELETE", credentials: "include" }
+                );
+
+                if (!response.ok) throw new Error("Delete failed.");
+
+                historyRecords = historyRecords.filter(r => r.id !== record.id);
+                refreshAnimalOptions();
+                renderHistory();
+
+            } catch (error) {
+                alert("Could not delete this entry.");
+            }
+        });
+
+        actions.appendChild(viewButton);
+        actions.appendChild(deleteButton);
+
+        card.addEventListener("click", () => {
             openHistoryRecord(record, type);
         });
 
-        item.appendChild(imageContainer);
-        item.appendChild(info);
-        item.appendChild(viewButton);
+        card.appendChild(imageBox);
+        card.appendChild(body);
+        card.appendChild(actions);
 
-        return item;
+        return card;
     }
 
     // ---------------------------------------
-    // DETERMINE RECORD TYPE
+    // HELPERS
     // ---------------------------------------
 
     function getRecordType(record) {
@@ -341,88 +398,88 @@ document.addEventListener("DOMContentLoaded", () => {
             ""
         ).toLowerCase();
 
-        // Explicit disease indicators
-        if (
-            rawType.includes("disease") ||
-            record.disease !== undefined
-        ) {
-            return "disease";
-        }
-
-        // Explicit breed indicators
-        if (
-            rawType.includes("breed") ||
-            record.breed !== undefined
-        ) {
-            return "breed";
-        }
+        if (rawType.includes("disease")) return "disease";
+        if (rawType.includes("breed")) return "breed";
+        if (record.disease) return "disease";
+        if (record.breed) return "breed";
 
         return "breed";
     }
 
-    // ---------------------------------------
-    // GET RESULT TITLE
-    // ---------------------------------------
-
     function getRecordTitle(record, type) {
 
         if (type === "breed") {
-
-            return (
-                record.breed ||
-                record.result ||
-                "Breed Detection"
-            );
+            return record.breed || "Breed Detection";
         }
 
-        return (
-            record.disease ||
-            record.result ||
-            "Disease Detection"
-        );
+        return record.disease || "Disease Detection";
     }
 
-    // ---------------------------------------
-    // OPEN DETAIL PAGE
-    // ---------------------------------------
+    function getConfidence(record, type) {
+
+        const value = Number(
+            type === "breed" ? record.breedConfidence : record.diseaseConfidence
+        );
+
+        if (!Number.isFinite(value)) return "";
+
+        const percent = value <= 1 ? value * 100 : value;
+
+        return percent.toFixed(1) + "%";
+    }
+
+    function capitalize(text) {
+        text = String(text || "");
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    function getGroupLabel(value) {
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) return "Earlier";
+
+        const now = new Date();
+
+        const startOfToday = new Date(
+            now.getFullYear(), now.getMonth(), now.getDate()
+        );
+
+        const startOfEntry = new Date(
+            date.getFullYear(), date.getMonth(), date.getDate()
+        );
+
+        const days = Math.round((startOfToday - startOfEntry) / 86400000);
+
+        if (days <= 0) return "Today";
+        if (days === 1) return "Yesterday";
+        if (days < 7) return "This week";
+
+        return "Earlier";
+    }
 
     function openHistoryRecord(record, type) {
 
-        /*
-         * The backend should provide an ID.
-         * We do not create fake IDs.
-         */
-
-        const id =
-            record.id ||
-            record._id ||
-            record.historyId ||
-            record.detectionId;
-
-        if (!id) {
-            console.error(
-                "History record does not contain an ID:",
-                record
-            );
-
+        if (!record.result) {
+            console.error("History record has no saved result:", record);
             return;
         }
 
-        if (type === "breed") {
+        const data = Object.assign({}, record.result, {
+            imageUrl: record.imageUrl || "",
+            savedAt: Date.now()
+        });
 
-            window.location.href =
-                `breed-history.html?id=${encodeURIComponent(id)}`;
+        sessionStorage.setItem("vetvisionDetectionResult", JSON.stringify(data));
 
-        } else {
+        sessionStorage.setItem(
+            type === "breed" ? "vetvisionBreedResult" : "vetvisionDiseaseResult",
+            JSON.stringify(data)
+        );
 
-            window.location.href =
-                `disease.html?id=${encodeURIComponent(id)}`;
-        }
+        window.location.href =
+            type === "breed" ? "breed-result.html" : "disease-result.html";
     }
-
-    // ---------------------------------------
-    // FORMAT DATE
-    // ---------------------------------------
 
     function formatDate(value) {
 
@@ -445,10 +502,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ---------------------------------------
-    // LOADING STATE
-    // ---------------------------------------
-
     function showLoading() {
 
         if (historyEmpty) {
@@ -460,7 +513,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (historyList) {
-
             historyList.innerHTML = `
                 <div class="history-loading">
                     Loading history...

@@ -1,6 +1,6 @@
 .dashboard-heading {
     max-width: 700px;
-    margin: 25px auto 50px;
+    margin: 25px auto 34px;
     text-align: center;
 }
 
@@ -22,6 +22,79 @@
     font-size: 14px;
 }
 
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.dashboard-stats {
+    max-width: 930px;
+    margin: 0 auto 30px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 18px 20px;
+
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e0e9e1;
+    border-radius: 16px;
+
+    box-shadow: 0 6px 20px rgba(57, 83, 63, 0.05);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(57, 83, 63, 0.10);
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    background: #edf5ed;
+
+    font-size: 20px;
+}
+
+.stat-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.stat-text strong {
+    color: #294333;
+    font-size: 22px;
+    font-weight: 650;
+    line-height: 1.2;
+}
+
+.stat-text span {
+    color: #829087;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   ACTION CARDS
+===================================================== */
+
 .dashboard-cards {
     max-width: 930px;
     margin: 0 auto;
@@ -34,7 +107,7 @@
 .dashboard-card {
     position: relative;
 
-    min-height: 330px;
+    min-height: 300px;
 
     padding: 42px;
 
@@ -129,10 +202,164 @@
     color: white;
 }
 
+
+/* =====================================================
+   RECENT SCANS
+===================================================== */
+
+.recent-section {
+    max-width: 930px;
+    margin: 42px auto 20px;
+}
+
+.recent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.recent-header h2 {
+    color: #304b38;
+    font-size: 18px;
+    font-weight: 650;
+}
+
+.recent-link {
+    color: #4c7e59;
+    font-size: 13px;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+.recent-link:hover {
+    transform: translateX(3px);
+}
+
+.recent-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.recent-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+    text-align: left;
+
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #e0e9e1;
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow: 0 6px 20px rgba(57, 83, 63, 0.05);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.recent-card:hover {
+    transform: translateY(-4px);
+    border-color: #bfd7c5;
+    box-shadow: 0 14px 30px rgba(57, 83, 63, 0.11);
+}
+
+.recent-image {
+    position: relative;
+    height: 110px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef4ef;
+
+    font-size: 34px;
+
+    overflow: hidden;
+}
+
+.recent-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recent-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    padding: 12px 14px 14px;
+}
+
+.recent-body strong {
+    color: #30483b;
+    font-size: 14px;
+    font-weight: 650;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recent-body span {
+    color: #75907d;
+    font-size: 12px;
+}
+
+.recent-body .recent-date {
+    color: #9aa59e;
+    font-size: 11px;
+}
+
+.recent-message {
+    grid-column: 1 / -1;
+
+    padding: 28px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px dashed #cfded3;
+    border-radius: 16px;
+
+    color: #87938c;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .recent-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 850px) {
 
     .dashboard-cards {
         grid-template-columns: 1fr;
     }
 
+}
+
+@media (max-width: 500px) {
+
+    .dashboard-stats,
+    .recent-grid {
+        grid-template-columns: 1fr;
+    }
 }

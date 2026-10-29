@@ -7,3 +7,7 @@ __pycache__/
 .env
 node_modules/
 .pytest_cache/
+
+cookies.txt
+login.json
+signup.json
