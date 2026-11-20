@@ -79,7 +79,6 @@ def test_health_api(client, monkeypatch):
     assert response.is_json
     assert response.get_json()["status"] == "ok"
 
-
 # 2. Animal name normalization
 @pytest.mark.parametrize(
     ("animal", "expected"),
@@ -111,6 +110,9 @@ def test_disease_missing_image(client):
 
     assert response.status_code == 400
     assert "No image uploaded" in response.get_json()["error"]
+
+
+
 
 
 # 5. Breed endpoint requires an image
@@ -264,6 +266,8 @@ def test_recommendation_rejects_invalid_animal(client):
 )
 def test_age_group(animal, age, unit, expected):
     assert Server.age_to_group(animal, age, unit) == expected
+
+
 
 
 # 14. Invalid age

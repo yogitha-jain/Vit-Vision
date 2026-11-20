@@ -5,6 +5,8 @@ VetVision inference: loads the trained models and predicts from an image.
 - Breed model (all 30 breeds):       TensorFlow/Keras EfficientNetV2-B0 (.keras).
 
 Models are loaded the first time they are needed, then kept in memory.
+Model files are read from backend/models if present there; otherwise they are
+downloaded from the Hugging Face repo below (and cached).
 """
 from pathlib import Path
 import json
@@ -13,6 +15,7 @@ import numpy as np
 from PIL import Image, UnidentifiedImageError
 
 MODELS_DIR = Path(__file__).resolve().parent.parent / "models"
+HF_REPO = "Yogithajain/vet-vision-models"
 
 # Change a filename here if yours is different.
 DISEASE_FILES = {
@@ -34,6 +37,24 @@ ANIMAL_ALIASES = {
 }
 
 _cache = {}
+
+
+def _local_ok(fname):
+    p = MODELS_DIR / fname
+    return p.is_file() and p.stat().st_size > 0
+
+
+def _model_path(fname):
+    """Use the local file if present, else download it from Hugging Face."""
+    if _local_ok(fname):
+        return MODELS_DIR / fname
+    try:
+        from huggingface_hub import hf_hub_download
+        return Path(hf_hub_download(HF_REPO, fname))
+    except Exception as e:
+        raise FileNotFoundError(
+            f"Model file '{fname}' not found locally and could not be "
+            f"downloaded from Hugging Face ({HF_REPO}): {e}")
 
 
 def normalize_animal(value):
@@ -61,16 +82,16 @@ def pretty(name):
 
 
 def models_status():
-    """Which model files are present in backend/models."""
+    """Where each model file will come from: local folder or Hugging Face."""
     files = {f"disease_{a}": f for a, f in DISEASE_FILES.items()}
     files["breed_model"] = BREED_MODEL_FILE
     files["breed_labels"] = LABEL_MAPS_FILE
     status = {}
     for key, fname in files.items():
-        path = MODELS_DIR / fname
         status[key] = {
             "file": fname,
-            "found": path.is_file() and path.stat().st_size > 0,
+            "found": True,
+            "source": "local" if _local_ok(fname) else f"huggingface:{HF_REPO}",
         }
     return status
 
@@ -81,9 +102,7 @@ def _load_disease(animal):
     if key in _cache:
         return _cache[key]
 
-    path = MODELS_DIR / DISEASE_FILES[animal]
-    if not path.is_file() or path.stat().st_size == 0:
-        raise FileNotFoundError(f"Model file missing or empty: models/{DISEASE_FILES[animal]}")
+    path = _model_path(DISEASE_FILES[animal])
 
     import torch
     import torch.nn as nn
@@ -126,11 +145,8 @@ def _load_breed():
     if "breed" in _cache:
         return _cache["breed"]
 
-    model_path = MODELS_DIR / BREED_MODEL_FILE
-    labels_path = MODELS_DIR / LABEL_MAPS_FILE
-    for p in (model_path, labels_path):
-        if not p.is_file() or p.stat().st_size == 0:
-            raise FileNotFoundError(f"Model file missing or empty: models/{p.name}")
+    model_path = _model_path(BREED_MODEL_FILE)
+    labels_path = _model_path(LABEL_MAPS_FILE)
 
     import tensorflow as tf
     # compile=False: we only predict, so the custom training loss isn't needed.

@@ -1,1 +1,3 @@
-window.VETVISION_API_BASE_URL = "http://" + (window.location.hostname || "127.0.0.1") + ":5000";
+window.VETVISION_API_BASE_URL = window.location.port === "5500"
+    ? "http://" + window.location.hostname + ":5000"
+    : window.location.origin;

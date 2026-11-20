@@ -178,7 +178,20 @@ try:
 except Exception as e:
     print("WARNING: could not reach MongoDB, accounts will not work until it is fixed:", e)
 
+from flask import send_from_directory
 
+_here = Path(__file__).resolve().parent
+FRONTEND_DIR = next((p for p in (_here.parent, _here.parent / "vet-vision-frontend--main")
+                     if (p / "index.html").is_file()), None)
+
+if FRONTEND_DIR:
+    @app.get("/")
+    def _index():
+        return send_from_directory(FRONTEND_DIR, "index.html")
+
+    @app.get("/<any(assets,css,js,pages):folder>/<path:filename>")
+    def _frontend_files(folder, filename):
+        return send_from_directory(FRONTEND_DIR / folder, filename)
 if __name__ == "__main__":
     # debug=False on purpose: the auto-reloader would load the models twice.
     app.run(host="127.0.0.1", port=5000, debug=False)

@@ -146,6 +146,12 @@ def test_main_pages_load(frontend_url, page: Page, page_name, expected_title):
     assert response is not None
     assert response.status == 200
     expect(page).to_have_title(expected_title)
+# FAIL 4: login page title is "VetVision | Login", not "VetVision | Register"
+def test_fail_login_page_title(frontend_url, page: Page):
+    page.goto(frontend_url + "/index.html")
+    expect(page).to_have_title("VetVision | Register", timeout=3000)
+
+
 
 
 def test_animal_selection_reveals_upload_section(frontend_url, page: Page):
@@ -189,3 +195,10 @@ def test_settings_password_form_is_present(frontend_url, page: Page):
     expect(page.locator("#newPassword")).to_be_visible()
     expect(page.locator("#confirmPassword")).to_be_visible()
     expect(page.locator("#logoutBtn")).to_be_visible()
+
+# FAIL 5: Analyze button is disabled until an image is uploaded
+def test_fail_analyze_enabled_before_upload(frontend_url, page: Page):
+    page.goto(frontend_url + "/pages/animal-selection.html")
+    page.locator('.animal-card[data-animal="dog"]').click()
+    expect(page.locator("#analyzeBtn")).to_be_enabled(timeout=3000)
+
